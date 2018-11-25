@@ -8,8 +8,10 @@ namespace AI_puzzle
         private int _gridSize;
         private int _gridLength;
         private int _randomPosition;
-        private Dictionary<int, int> _grid; // <int, Field> ?
-        private List<String> _history;
+        private int[][] _grid; // <int, Field> ?
+        private List<String> _movesHistory;
+
+        private Dictionary<int, PuzzleGrid> _gridHistory;
 
         private Random random;
 
@@ -18,6 +20,8 @@ namespace AI_puzzle
         {
             this._gridSize = gridSize;
             this._gridLength = (_gridSize * _gridSize);
+            this._history = new List<String>();
+            
             random = new Random();
 
             _grid = new Dictionary<int, int>();
@@ -29,9 +33,15 @@ namespace AI_puzzle
             initRandomGrid();
         }
 
+        public void makeMove(char direction)
+        {
+
+        }
+
+
         public void initRandomGrid()
         {
-            for (int i = 0; i < _gridLength - 1; i++)
+            for (int i = 0; i < _gridLength; i++)
             {
                 do
                 {
@@ -49,7 +59,8 @@ namespace AI_puzzle
                 var temp = "";
                 for(int x = 0; x <_gridSize; x++)
                 {
-                    temp += _grid[(y*4 + x)].ToString();
+                    temp += _grid[(y*4 + x)].ToString()+ " ";
+                    
                 }
                 Console.WriteLine(temp);
             }
