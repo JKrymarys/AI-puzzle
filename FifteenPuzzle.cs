@@ -17,7 +17,7 @@ namespace AI_puzzle
         public FifteenPuzzle(int gridSize)
         {
             this._gridSize = gridSize;
-            this._gridLength = (_gridSize ^ 2);
+            this._gridLength = (_gridSize * _gridSize);
             random = new Random();
 
             _grid = new Dictionary<int, int>();
