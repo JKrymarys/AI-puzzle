@@ -6,7 +6,9 @@ namespace AI_puzzle
     {
         public Algorithms()
         {
-            
+
         }
+
+        
     }
 }
