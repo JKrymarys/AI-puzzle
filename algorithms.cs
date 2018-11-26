@@ -2,9 +2,9 @@ using System;
 
 namespace AI_puzzle
 {
-    class Algorithms
+   public class Algorithms
     {
-        public Algorithms()
+     public Algorithms()
         {
 
         }

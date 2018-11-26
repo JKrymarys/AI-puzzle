@@ -11,14 +11,19 @@ namespace AI_puzzle
         private int _zeroRow;
         private int _zeroColumn;
         //first init 
+
+        public bool isSolvable()
+        {
+            return true;
+        }
         public PuzzleGrid(int _gridSize)
         {
             this.gridSize = _gridSize;
             this.grid = new int[4, 4];
 
-            for (int y = 0; y < _gridSize; x++)
+            for (int y = 0; y < _gridSize; y++)
             {
-                for (int x = 0; y < _gridSize; y++)
+                for (int x = 0; x < _gridSize; x++)
                 {
                     goalGrid[x, y] = (y * 4) + x;
                 }

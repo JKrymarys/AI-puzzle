@@ -16,7 +16,7 @@ namespace AI_puzzle
 
 
 
-            FifteenPuzzle puzzle = new FifteenPuzzle(4);
+            PuzzleGrid puzzle = new PuzzleGrid(4);
             puzzle.printGrid();
         }
     }
