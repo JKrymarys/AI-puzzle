@@ -15,8 +15,20 @@ namespace AI_puzzle
                      "-s || --sma id_of_heurisic \t SMA* strategy for Breadth First Search \n");
 
 
+            // int [,] grid = new int[,] {
+            //     {3, 9, 1, 15},
+            //     {14, 11, 4, 6},
+            //     {13, 0, 10, 12},
+            //     {2, 7, 8, 5}
+            // };
 
-            PuzzleGrid puzzle = new PuzzleGrid(4);
+             int [,] grid = new int[,] {
+               {1, 8, 2},
+               {0, 4, 3},
+               {7, 6, 5}
+            };
+
+            PuzzleGrid puzzle = new PuzzleGrid(grid, 2);
             puzzle.printGrid();
         }
     }

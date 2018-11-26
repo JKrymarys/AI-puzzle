@@ -12,26 +12,59 @@ namespace AI_puzzle
         private int _zeroColumn;
         //first init 
 
+        private int getInvCount(int[,] grid)
+        {
+            int inversCount = 0;
+            for (int x = 0; x < gridSize; x++) 
+            { 
+                for (int y = 0; y < gridSize; y++) 
+                {
+                    for (int m = x + 1; m < gridSize - 1; m++)
+                    {
+                        for (int n = y + 1; n < gridSize - 1; n++)
+                        {
+                            if (grid[x,y] > grid[m,n]) 
+                                inversCount++;
+                        }
+                    }
+                } 
+            } 
+            return inversCount; 
+        }
+
         public bool isSolvable()
         {
-            return true;
-        }
-        public PuzzleGrid(int _gridSize)
-        {
-            this.gridSize = _gridSize;
-            this.grid = new int[4, 4];
-
-            for (int y = 0; y < _gridSize; y++)
+            bool solvable = false;
+            int inversionsCount = getInvCount(grid);
+            if (gridSize % 2 != 0)
             {
-                for (int x = 0; x < _gridSize; x++)
+                if(inversionsCount % 2 == 0)
+                    solvable = true;
+            } else {
+                if (_zeroRow % 2 == 0)
                 {
-                    goalGrid[x, y] = (y * 4) + x;
+                    if (inversionsCount % 2 == 0)
+                        solvable = true;
+                }
+                else
+                {
+                    if (inversionsCount % 2 != 0)
+                        solvable = true;
                 }
             }
-            _zeroRow = 0;
-            _zeroColumn = 0;
+            return solvable;
+        }
 
-            Console.Write(goalGrid.ToString());
+        public PuzzleGrid(int[,] grid, int zeroRow)
+        {
+            this._zeroRow = zeroRow;
+            if (isSolvable())
+            {
+                this.grid = grid;
+                Console.WriteLine("xd");
+            } else {
+                Console.WriteLine("dupa");
+            }
         }
 
 

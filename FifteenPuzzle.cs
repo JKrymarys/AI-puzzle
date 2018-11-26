@@ -13,7 +13,7 @@ namespace AI_puzzle
 
         public FifteenPuzzle(int gridSize)
         {
-            _grid = new PuzzleGrid(gridSize);
+           // _grid = new PuzzleGrid(gridSize);
         }
 
     }
