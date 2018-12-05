@@ -95,7 +95,7 @@ namespace AI_puzzle
                 var temp = "";
                 for (int x = 0; x < _gridSize; x++)
                 {
-                    temp += grid[x, y].ToString() + " ";
+                    temp += grid[y, x].ToString() + " ";
                 }
                 Console.WriteLine(temp);
             }
