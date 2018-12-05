@@ -28,7 +28,7 @@ namespace AI_puzzle
                {7, 6, 5}
             };
 
-            PuzzleGrid puzzle = new PuzzleGrid(grid, 2);
+            PuzzleGrid puzzle = new PuzzleGrid(grid);
             puzzle.printGrid();
         }
     }

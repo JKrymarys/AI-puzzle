@@ -5,7 +5,7 @@ namespace AI_puzzle
 {
     public class PuzzleGrid
     {
-        public int gridSize;
+        public int _gridSize;
         public int[,] grid; // <int, Field> ?
         static public int[,] goalGrid;
         private int _zeroRow;
@@ -15,13 +15,13 @@ namespace AI_puzzle
         private int getInvCount(int[,] grid)
         {
             int inversCount = 0;
-            for (int x = 0; x < gridSize; x++) 
+            for (var x = 0; x < _gridSize; x++) 
             { 
-                for (int y = 0; y < gridSize; y++) 
+                for (var y = 0; y < _gridSize; y++) 
                 {
-                    for (int m = x + 1; m < gridSize - 1; m++)
+                    for (var m = x + 1; m < _gridSize - 1; m++)
                     {
-                        for (int n = y + 1; n < gridSize - 1; n++)
+                        for (var n = y + 1; n < _gridSize - 1; n++)
                         {
                             if (grid[x,y] > grid[m,n]) 
                                 inversCount++;
@@ -36,7 +36,7 @@ namespace AI_puzzle
         {
             bool solvable = false;
             int inversionsCount = getInvCount(grid);
-            if (gridSize % 2 != 0)
+            if (_gridSize % 2 != 0)
             {
                 if(inversionsCount % 2 == 0)
                     solvable = true;
@@ -55,15 +55,20 @@ namespace AI_puzzle
             return solvable;
         }
 
-        public PuzzleGrid(int[,] grid, int zeroRow)
+        public PuzzleGrid(int[,] grid)
         {
-            this._zeroRow = zeroRow;
-            if (isSolvable())
+            this._gridSize = grid.GetLength(0);
+            var index = 0;
+            foreach (int element in grid) {
+                if (element == 0) {
+                    _zeroRow = (index / _gridSize) + 1;
+                }
+                index++;
+            }
+            this.grid = grid;
+            if (!isSolvable())
             {
-                this.grid = grid;
-                Console.WriteLine("xd");
-            } else {
-                Console.WriteLine("dupa");
+                Console.WriteLine("Non solvable!");
             }
         }
 
@@ -71,11 +76,11 @@ namespace AI_puzzle
         //copy contructor
         public PuzzleGrid(PuzzleGrid _previousGrid)
         {
-            this.gridSize = _previousGrid.gridSize;
+            this._gridSize = _previousGrid._gridSize;
 
-            for (int x = 0; x < gridSize; x++)
+            for (var x = 0; x < _gridSize; x++)
             {
-                for (int y = 0; y < gridSize; y++)
+                for (var y = 0; y < _gridSize; y++)
                 {
                     this.grid[x, y] = _previousGrid.grid[x, y];
                 }
@@ -85,10 +90,10 @@ namespace AI_puzzle
 
         public void printGrid()
         {
-            for (int y = 0; y < gridSize; y++)
+            for (int y = 0; y < _gridSize; y++)
             {
                 var temp = "";
-                for (int x = 0; x < gridSize; x++)
+                for (int x = 0; x < _gridSize; x++)
                 {
                     temp += grid[x, y].ToString() + " ";
                 }
@@ -98,9 +103,9 @@ namespace AI_puzzle
 
         public bool checkIfSolved()
         {
-            for (int y = 0; y < gridSize; y++)
+            for (int y = 0; y < _gridSize; y++)
             {
-                for (int x = 0; x < gridSize; x++)
+                for (int x = 0; x < _gridSize; x++)
                 {
                     if (this.grid[x, y] != goalGrid[x, y])
                         return false;
@@ -114,9 +119,9 @@ namespace AI_puzzle
         {
 
             if (this._zeroColumn <= 0 ||
-                this._zeroColumn >= (this.gridSize - 1) ||
+                this._zeroColumn >= (this._gridSize - 1) ||
                 this._zeroRow <= 0 ||
-                this._zeroRow >= (this.gridSize - 1))
+                this._zeroRow >= (this._gridSize - 1))
             {
                 return false;
             }
@@ -127,19 +132,15 @@ namespace AI_puzzle
                 case 'U':
                     moveUp();
                     return true;
-                    break;
                 case 'D':
                     moveDown();
                     return true;
-                    break;
                 case 'L':
                     moveLeft();
                     return true;
-                    break;
                 case 'R':
                     moveRigth();
                     return true;
-                    break;
                 default:
                     return false;
             }
