@@ -19,9 +19,9 @@ namespace AI_puzzle
             { 
                 for (var y = 0; y < _gridSize; y++) 
                 {
-                    for (var m = x + 1; m < _gridSize - 1; m++)
+                    for (var m = x; m < _gridSize; m++)
                     {
-                        for (var n = y + 1; n < _gridSize - 1; n++)
+                        for (var n = y; n < _gridSize; n++)
                         {
                             if (grid[x,y] > grid[m,n]) 
                                 inversCount++;

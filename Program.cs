@@ -22,7 +22,7 @@ namespace AI_puzzle
             //     {2, 7, 8, 5}
             // };
 
-             int [,] grid = new int[,] {
+            int [,] grid = new int[,] {
                {1, 8, 2},
                {0, 4, 3},
                {7, 6, 5}
