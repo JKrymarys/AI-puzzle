@@ -12,24 +12,27 @@ namespace AI_puzzle
         private int _zeroColumn;
         //first init 
 
+        //not sure if we need dictionary, can be changed to sth else
+        private List<PuzzleGrid> doneMoves;
+
         private int getInvCount(int[,] grid)
         {
             int inversCount = 0;
-            for (var x = 0; x < _gridSize; x++) 
-            { 
-                for (var y = 0; y < _gridSize; y++) 
+            for (var x = 0; x < _gridSize; x++)
+            {
+                for (var y = 0; y < _gridSize; y++)
                 {
                     for (var m = x; m < _gridSize; m++)
                     {
                         for (var n = y; n < _gridSize; n++)
                         {
-                            if (grid[x,y] > grid[m,n]) 
+                            if (grid[x, y] > grid[m, n])
                                 inversCount++;
                         }
                     }
-                } 
-            } 
-            return inversCount; 
+                }
+            }
+            return inversCount;
         }
 
         public bool isSolvable()
@@ -38,9 +41,11 @@ namespace AI_puzzle
             int inversionsCount = getInvCount(grid);
             if (_gridSize % 2 != 0)
             {
-                if(inversionsCount % 2 == 0)
+                if (inversionsCount % 2 == 0)
                     solvable = true;
-            } else {
+            }
+            else
+            {
                 if (_zeroRow % 2 == 0)
                 {
                     if (inversionsCount % 2 == 0)
@@ -59,8 +64,10 @@ namespace AI_puzzle
         {
             this._gridSize = grid.GetLength(0);
             var index = 0;
-            foreach (int element in grid) {
-                if (element == 0) {
+            foreach (int element in grid)
+            {
+                if (element == 0)
+                {
                     _zeroRow = (index / _gridSize) + 1;
                 }
                 index++;
@@ -117,7 +124,7 @@ namespace AI_puzzle
 
         public bool move(char direction)
         {
-
+            //check if move is possible
             if (this._zeroColumn <= 0 ||
                 this._zeroColumn >= (this._gridSize - 1) ||
                 this._zeroRow <= 0 ||
@@ -126,53 +133,54 @@ namespace AI_puzzle
                 return false;
             }
 
+            //check if such a move was tried before 
+            if(this.doneMoves.Contains(this))
+                return false; 
+            
+            this.doneMoves.Add(this); // instance of puzzleGrid or just [,] ?
+
 
             switch (direction)
             {
                 case 'U':
-                    moveUp();
-                    return true;
+                    {
+                        var temp = this.grid[this._zeroRow - 1, this._zeroColumn];
+                        this.grid[this._zeroRow - 1, this._zeroColumn] = 0;
+                        this.grid[this._zeroRow, this._zeroColumn] = temp;
+                        this._zeroRow = this._zeroRow - 1;
+
+                        return true;
+                    }
                 case 'D':
-                    moveDown();
-                    return true;
+                    {
+                        var temp = this.grid[this._zeroRow + 1, this._zeroColumn];
+                        this.grid[this._zeroRow + 1, this._zeroColumn] = 0;
+                        this.grid[this._zeroRow, this._zeroColumn] = temp;
+                        this._zeroRow = this._zeroRow + 1;
+                        return true;
+                    }
+
                 case 'L':
-                    moveLeft();
-                    return true;
+                    {
+                        int temp = this.grid[this._zeroRow, this._zeroColumn - 1];
+                        this.grid[this._zeroRow, this._zeroColumn - 1] = 0;
+                        this.grid[this._zeroRow, this._zeroColumn] = temp;
+                        this._zeroColumn = this._zeroColumn - 1;
+                        return true;
+                    }
+
                 case 'R':
-                    moveRigth();
-                    return true;
+                    {
+                        int temp = this.grid[this._zeroRow, this._zeroColumn + 1];
+                        this.grid[this._zeroRow, this._zeroColumn + 1] = 0;
+                        this.grid[this._zeroRow, this._zeroColumn] = temp;
+                        this._zeroColumn = this._zeroColumn + 1;
+                        return true;
+                    }
+
                 default:
                     return false;
             }
-        }
-
-        private void moveUp()
-        {
-            int temp = this.grid[this._zeroRow - 1, this._zeroColumn];
-            this.grid[this._zeroRow - 1, this._zeroColumn] = 0;
-            this.grid[this._zeroRow, this._zeroColumn] = temp;
-            this._zeroRow = this._zeroRow - 1;
-        }
-        private void moveDown()
-        {
-            int temp = this.grid[this._zeroRow + 1, this._zeroColumn];
-            this.grid[this._zeroRow + 1, this._zeroColumn] = 0;
-            this.grid[this._zeroRow, this._zeroColumn] = temp;
-            this._zeroRow = this._zeroRow + 1;
-        }
-        private void moveLeft()
-        {
-            int temp = this.grid[this._zeroRow, this._zeroColumn - 1];
-            this.grid[this._zeroRow, this._zeroColumn - 1] = 0;
-            this.grid[this._zeroRow, this._zeroColumn] = temp;
-            this._zeroColumn = this._zeroColumn - 1;
-        }
-        private void moveRigth()
-        {
-            int temp = this.grid[this._zeroRow, this._zeroColumn + 1];
-            this.grid[this._zeroRow, this._zeroColumn + 1] = 0;
-            this.grid[this._zeroRow, this._zeroColumn] = temp;
-            this._zeroColumn = this._zeroColumn + 1;
         }
     }
 }
