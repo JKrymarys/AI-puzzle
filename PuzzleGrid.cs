@@ -110,34 +110,43 @@ namespace AI_puzzle
 
         public bool checkIfSolved()
         {
+            bool dupy = false;
+            int i = 0;
             for (int y = 0; y < _gridSize; y++)
             {
                 for (int x = 0; x < _gridSize; x++)
                 {
-                    if (this.grid[x, y] != goalGrid[x, y])
+                    if(this.grid[y, x] == i)
+                    {
+                        dupy = true;
+                    }
+                    else
+                    {
                         return false;
+                    }
+                    i++;
                 }
             }
-            return true;
+            return dupy;
         }
 
 
         public bool move(char direction)
         {
             //check if move is possible
-            if (this._zeroColumn <= 0 ||
-                this._zeroColumn >= (this._gridSize - 1) ||
-                this._zeroRow <= 0 ||
-                this._zeroRow >= (this._gridSize - 1))
+            if (this._zeroColumn < 0 ||
+                this._zeroColumn > this._gridSize ||
+                this._zeroRow < 0 ||
+                this._zeroRow > this._gridSize)
             {
                 return false;
             }
 
             //check if such a move was tried before 
-            if(this.doneMoves.Contains(this))
-                return false; 
+            // if(this.doneMoves.Contains(this))
+            //     return false; 
             
-            this.doneMoves.Add(this); // instance of puzzleGrid or just [,] ?
+            // this.doneMoves.Add(this); // instance of puzzleGrid or just [,] ?
 
 
             switch (direction)

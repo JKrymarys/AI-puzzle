@@ -22,9 +22,16 @@ namespace AI_puzzle
             //     {13, 0, 10, 12},
             //     {2, 7, 8, 5}
             // };
-
-
-            
+            // Console.Write("Enter the size of grid: ");
+            // int a = Convert.ToInt32(Console.Read());
+            // int [] grid = new int[a];
+            // Console.Write("Enter the grid");
+            // for (var i = 0; i < 4; i++)
+            // {
+            //     grid[i] = Convert.ToInt32(Console.ReadLine());
+            //     Console.WriteLine( grid[i]);
+            // }
+            // Console.ReadKey();
             int [,] grid = new int[,] {
                {1, 8, 2},
                {0, 4, 3},
@@ -33,6 +40,10 @@ namespace AI_puzzle
 
             PuzzleGrid puzzle = new PuzzleGrid(grid);
             puzzle.printGrid();
+
+            Algorithms algorithm = new Algorithms();
+            bool xd = algorithm.BFS(puzzle);
+            Console.WriteLine(xd);
         }
     }
 }
