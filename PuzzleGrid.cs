@@ -139,10 +139,8 @@ namespace AI_puzzle
             {
                 return false;
             }
-            
-            doneMoves.Add(new PuzzleGrid(this));
 
-
+ 
             switch (direction)
             {
                 case 'U':
@@ -191,6 +189,10 @@ namespace AI_puzzle
                 default:
                     return false;
             }
+
+
+            var oldPuzzleGrid = new PuzzleGrid(this.grid);
+            doneMoves.Add(oldPuzzleGrid);
 
             this.printGrid();
             Console.WriteLine();
