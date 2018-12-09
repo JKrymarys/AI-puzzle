@@ -14,7 +14,6 @@ namespace AI_puzzle
     {
         Queue<PuzzleGrid> frontier = new Queue<PuzzleGrid>();
         frontier.Enqueue(grid);
-        HashSet<PuzzleGrid> explored = new HashSet<PuzzleGrid>();
         char[] possible_moves = {'U', 'D', 'L', 'R'};
         while(frontier.Count != 0)
         {
@@ -26,8 +25,7 @@ namespace AI_puzzle
 
             foreach(char i in possible_moves)
             {
-                grid.move(i);
-                if(!frontier.Contains(grid) || explored.Contains(grid))
+                if(grid.move(i))
                 {
                     frontier.Enqueue(grid);
                 }

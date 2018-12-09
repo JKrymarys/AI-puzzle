@@ -46,7 +46,7 @@ namespace AI_puzzle
             }
             else
             {
-                if (_zeroRow % 2 == 0)
+                if (_zeroRow % 2 != 0)
                 {
                     if (inversionsCount % 2 == 0)
                         solvable = true;
@@ -68,11 +68,13 @@ namespace AI_puzzle
             {
                 if (element == 0)
                 {
-                    _zeroRow = (index / _gridSize) + 1;
+                    _zeroRow = (index / _gridSize);
+                    _zeroColumn = (index % _gridSize);
                 }
                 index++;
             }
             this.grid = grid;
+            doneMoves = new List<PuzzleGrid>();
             if (!isSolvable())
             {
                 Console.WriteLine("Non solvable!");
@@ -110,7 +112,7 @@ namespace AI_puzzle
 
         public bool checkIfSolved()
         {
-            bool dupy = false;
+            bool solved = false;
             int i = 0;
             for (int y = 0; y < _gridSize; y++)
             {
@@ -118,7 +120,7 @@ namespace AI_puzzle
                 {
                     if(this.grid[y, x] == i)
                     {
-                        dupy = true;
+                        solved = true;
                     }
                     else
                     {
@@ -127,41 +129,36 @@ namespace AI_puzzle
                     i++;
                 }
             }
-            return dupy;
+            return solved;
         }
 
 
         public bool move(char direction)
         {
-            //check if move is possible
-            if (this._zeroColumn < 0 ||
-                this._zeroColumn > this._gridSize ||
-                this._zeroRow < 0 ||
-                this._zeroRow > this._gridSize)
+            if(doneMoves.Contains(this))
             {
                 return false;
             }
-
-            //check if such a move was tried before 
-            // if(this.doneMoves.Contains(this))
-            //     return false; 
             
-            // this.doneMoves.Add(this); // instance of puzzleGrid or just [,] ?
+            doneMoves.Add(new PuzzleGrid(this));
 
 
             switch (direction)
             {
                 case 'U':
                     {
+                        if(this._zeroRow - 1 < 0)
+                            return false;
                         var temp = this.grid[this._zeroRow - 1, this._zeroColumn];
                         this.grid[this._zeroRow - 1, this._zeroColumn] = 0;
                         this.grid[this._zeroRow, this._zeroColumn] = temp;
                         this._zeroRow = this._zeroRow - 1;
-
                         break;
                     }
                 case 'D':
                     {
+                        if(this._zeroRow + 1 >= this._gridSize)
+                            return false;
                         var temp = this.grid[this._zeroRow + 1, this._zeroColumn];
                         this.grid[this._zeroRow + 1, this._zeroColumn] = 0;
                         this.grid[this._zeroRow, this._zeroColumn] = temp;
@@ -171,6 +168,8 @@ namespace AI_puzzle
 
                 case 'L':
                     {
+                        if (this._zeroColumn - 1 < 0)
+                            return false;
                         int temp = this.grid[this._zeroRow, this._zeroColumn - 1];
                         this.grid[this._zeroRow, this._zeroColumn - 1] = 0;
                         this.grid[this._zeroRow, this._zeroColumn] = temp;
@@ -180,6 +179,8 @@ namespace AI_puzzle
 
                 case 'R':
                     {
+                        if (this._zeroColumn + 1 >= this._gridSize)
+                            return false;
                         int temp = this.grid[this._zeroRow, this._zeroColumn + 1];
                         this.grid[this._zeroRow, this._zeroColumn + 1] = 0;
                         this.grid[this._zeroRow, this._zeroColumn] = temp;
@@ -192,6 +193,7 @@ namespace AI_puzzle
             }
 
             this.printGrid();
+            Console.WriteLine();
             return true;
         }
     }
