@@ -149,7 +149,7 @@ namespace AI_puzzle
                         this.grid[this._zeroRow, this._zeroColumn] = temp;
                         this._zeroRow = this._zeroRow - 1;
 
-                        return true;
+                        break;
                     }
                 case 'D':
                     {
@@ -157,7 +157,7 @@ namespace AI_puzzle
                         this.grid[this._zeroRow + 1, this._zeroColumn] = 0;
                         this.grid[this._zeroRow, this._zeroColumn] = temp;
                         this._zeroRow = this._zeroRow + 1;
-                        return true;
+                       break;
                     }
 
                 case 'L':
@@ -166,7 +166,7 @@ namespace AI_puzzle
                         this.grid[this._zeroRow, this._zeroColumn - 1] = 0;
                         this.grid[this._zeroRow, this._zeroColumn] = temp;
                         this._zeroColumn = this._zeroColumn - 1;
-                        return true;
+                        break;
                     }
 
                 case 'R':
@@ -175,12 +175,15 @@ namespace AI_puzzle
                         this.grid[this._zeroRow, this._zeroColumn + 1] = 0;
                         this.grid[this._zeroRow, this._zeroColumn] = temp;
                         this._zeroColumn = this._zeroColumn + 1;
-                        return true;
+                       break;
                     }
 
                 default:
                     return false;
             }
+
+            this.printGrid();
+            return true;
         }
     }
 }
