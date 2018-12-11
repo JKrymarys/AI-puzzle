@@ -13,7 +13,7 @@ namespace AI_puzzle
         //first init 
 
         //not sure if we need dictionary, can be changed to sth else
-        private List<PuzzleGrid> doneMoves;
+        private List<int[,]> doneMoves;
 
         private int getInvCount(int[,] grid)
         {
@@ -74,7 +74,8 @@ namespace AI_puzzle
                 index++;
             }
             this.grid = grid;
-            doneMoves = new List<PuzzleGrid>();
+            doneMoves = new List<int[,]>();
+            doneMoves.Add(grid);
             if (!isSolvable())
             {
                 Console.WriteLine("Non solvable!");
@@ -135,32 +136,30 @@ namespace AI_puzzle
 
         public bool move(char direction)
         {
-            if(doneMoves.Contains(this))
-            {
-                return false;
-            }
+            var copy_of_grid = this.grid;
+            int i = 0;
+            int j = 0;
 
- 
             switch (direction)
             {
                 case 'U':
                     {
                         if(this._zeroRow - 1 < 0)
                             return false;
-                        var temp = this.grid[this._zeroRow - 1, this._zeroColumn];
-                        this.grid[this._zeroRow - 1, this._zeroColumn] = 0;
-                        this.grid[this._zeroRow, this._zeroColumn] = temp;
-                        this._zeroRow = this._zeroRow - 1;
+                        var temp = copy_of_grid[this._zeroRow - 1, this._zeroColumn];
+                        copy_of_grid[this._zeroRow - 1, this._zeroColumn] = 0;
+                        copy_of_grid[this._zeroRow, this._zeroColumn] = temp;
+                        i = -1;
                         break;
                     }
                 case 'D':
                     {
                         if(this._zeroRow + 1 >= this._gridSize)
                             return false;
-                        var temp = this.grid[this._zeroRow + 1, this._zeroColumn];
-                        this.grid[this._zeroRow + 1, this._zeroColumn] = 0;
-                        this.grid[this._zeroRow, this._zeroColumn] = temp;
-                        this._zeroRow = this._zeroRow + 1;
+                        var temp = copy_of_grid[this._zeroRow + 1, this._zeroColumn];
+                        copy_of_grid[this._zeroRow + 1, this._zeroColumn] = 0;
+                        copy_of_grid[this._zeroRow, this._zeroColumn] = temp;
+                        i = 1;
                        break;
                     }
 
@@ -168,10 +167,10 @@ namespace AI_puzzle
                     {
                         if (this._zeroColumn - 1 < 0)
                             return false;
-                        int temp = this.grid[this._zeroRow, this._zeroColumn - 1];
-                        this.grid[this._zeroRow, this._zeroColumn - 1] = 0;
-                        this.grid[this._zeroRow, this._zeroColumn] = temp;
-                        this._zeroColumn = this._zeroColumn - 1;
+                        int temp = copy_of_grid[this._zeroRow, this._zeroColumn - 1];
+                        copy_of_grid[this._zeroRow, this._zeroColumn - 1] = 0;
+                        copy_of_grid[this._zeroRow, this._zeroColumn] = temp;
+                        j = -1;
                         break;
                     }
 
@@ -179,10 +178,10 @@ namespace AI_puzzle
                     {
                         if (this._zeroColumn + 1 >= this._gridSize)
                             return false;
-                        int temp = this.grid[this._zeroRow, this._zeroColumn + 1];
-                        this.grid[this._zeroRow, this._zeroColumn + 1] = 0;
-                        this.grid[this._zeroRow, this._zeroColumn] = temp;
-                        this._zeroColumn = this._zeroColumn + 1;
+                        int temp = copy_of_grid[this._zeroRow, this._zeroColumn + 1];
+                        copy_of_grid[this._zeroRow, this._zeroColumn + 1] = 0;
+                        copy_of_grid[this._zeroRow, this._zeroColumn] = temp;
+                        j = 1;
                        break;
                     }
 
@@ -190,9 +189,14 @@ namespace AI_puzzle
                     return false;
             }
 
+            if (!doneMoves.Contains(copy_of_grid))
+            {
+                this.grid = copy_of_grid;
+                this._zeroRow = this._zeroRow + i;
+                this._zeroColumn = this._zeroColumn + j;
+            } 
 
-            var oldPuzzleGrid = new PuzzleGrid(this.grid);
-            doneMoves.Add(oldPuzzleGrid);
+            doneMoves.Add(this.grid);
 
             this.printGrid();
             Console.WriteLine();
