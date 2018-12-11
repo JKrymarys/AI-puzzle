@@ -34,7 +34,6 @@ namespace AI_puzzle
             }
             return inversCount;
         }
-
         public bool isSolvable()
         {
             bool solvable = false;
@@ -75,7 +74,7 @@ namespace AI_puzzle
             }
             this.grid = grid;
             doneMoves = new List<int[,]>();
-            doneMoves.Add(grid);
+            doneMoves.Add((int[,])grid.Clone());
             if (!isSolvable())
             {
                 Console.WriteLine("Non solvable!");
@@ -136,10 +135,9 @@ namespace AI_puzzle
 
         public bool move(char direction)
         {
-            var copy_of_grid = this.grid;
+            var copy_of_grid = (int[,])grid.Clone();
             int i = 0;
             int j = 0;
-
             switch (direction)
             {
                 case 'U':
@@ -194,9 +192,9 @@ namespace AI_puzzle
                 this.grid = copy_of_grid;
                 this._zeroRow = this._zeroRow + i;
                 this._zeroColumn = this._zeroColumn + j;
+                doneMoves.Add((int[,])grid.Clone());
             } 
 
-            doneMoves.Add(this.grid);
 
             this.printGrid();
             Console.WriteLine();
