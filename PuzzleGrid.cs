@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 namespace AI_puzzle
 {
-    public class PuzzleGrid
+    public class PuzzleGrid 
     {
         public int _gridSize;
         public int[,] grid; // <int, Field> ?
@@ -73,12 +73,11 @@ namespace AI_puzzle
                 index++;
             }
             this.grid = grid;
-            doneMoves = new List<int[,]>();
-            doneMoves.Add((int[,])grid.Clone());
-            if (!isSolvable())
-            {
-                Console.WriteLine("Non solvable!");
-            }
+
+            // if (!isSolvable())
+            // {
+            //     Console.WriteLine("Non solvable!");
+            // }
         }
 
 
@@ -118,7 +117,7 @@ namespace AI_puzzle
             {
                 for (int x = 0; x < _gridSize; x++)
                 {
-                    if(this.grid[y, x] == i)
+                    if (this.grid[y, x] == i)
                     {
                         solved = true;
                     }
@@ -132,73 +131,86 @@ namespace AI_puzzle
             return solved;
         }
 
-
-        public bool move(char direction)
+        public override bool Equals(Object other)
         {
-            var copy_of_grid = (int[,])grid.Clone();
-            int i = 0;
-            int j = 0;
-            switch (direction)
+            if ((other == null) || !this.GetType().Equals(other.GetType()))
             {
-                case 'U':
-                    {
-                        if(this._zeroRow - 1 < 0)
-                            return false;
-                        var temp = copy_of_grid[this._zeroRow - 1, this._zeroColumn];
-                        copy_of_grid[this._zeroRow - 1, this._zeroColumn] = 0;
-                        copy_of_grid[this._zeroRow, this._zeroColumn] = temp;
-                        i = -1;
-                        break;
-                    }
-                case 'D':
-                    {
-                        if(this._zeroRow + 1 >= this._gridSize)
-                            return false;
-                        var temp = copy_of_grid[this._zeroRow + 1, this._zeroColumn];
-                        copy_of_grid[this._zeroRow + 1, this._zeroColumn] = 0;
-                        copy_of_grid[this._zeroRow, this._zeroColumn] = temp;
-                        i = 1;
-                       break;
-                    }
-
-                case 'L':
-                    {
-                        if (this._zeroColumn - 1 < 0)
-                            return false;
-                        int temp = copy_of_grid[this._zeroRow, this._zeroColumn - 1];
-                        copy_of_grid[this._zeroRow, this._zeroColumn - 1] = 0;
-                        copy_of_grid[this._zeroRow, this._zeroColumn] = temp;
-                        j = -1;
-                        break;
-                    }
-
-                case 'R':
-                    {
-                        if (this._zeroColumn + 1 >= this._gridSize)
-                            return false;
-                        int temp = copy_of_grid[this._zeroRow, this._zeroColumn + 1];
-                        copy_of_grid[this._zeroRow, this._zeroColumn + 1] = 0;
-                        copy_of_grid[this._zeroRow, this._zeroColumn] = temp;
-                        j = 1;
-                       break;
-                    }
-
-                default:
-                    return false;
+                return false;
             }
 
-            if (!doneMoves.Contains(copy_of_grid))
+            else
             {
-                this.grid = copy_of_grid;
-                this._zeroRow = this._zeroRow + i;
-                this._zeroColumn = this._zeroColumn + j;
-                doneMoves.Add((int[,])grid.Clone());
-            } 
-
-
-            this.printGrid();
-            Console.WriteLine();
-            return true;
+                return (this.grid == ((PuzzleGrid)other).grid);
+            }
         }
+
+
+            public PuzzleGrid move(char direction)
+            {
+                var copy_of_grid = (int[,])grid.Clone();
+                int i = 0;
+                int j = 0;
+                switch (direction)
+                {
+                    case 'U':
+                        {
+                            if (this._zeroRow - 1 < 0)
+                                return null;
+
+                            var temp = copy_of_grid[this._zeroRow - 1, this._zeroColumn];
+                            copy_of_grid[this._zeroRow - 1, this._zeroColumn] = 0;
+                            copy_of_grid[this._zeroRow, this._zeroColumn] = temp;
+                            i = -1;
+
+                            var toReturn = new PuzzleGrid(copy_of_grid);
+                            return toReturn;
+                        }
+                    case 'D':
+                        {
+                            if (this._zeroRow + 1 >= this._gridSize)
+                                return null;
+
+                            var temp = copy_of_grid[this._zeroRow + 1, this._zeroColumn];
+                            copy_of_grid[this._zeroRow + 1, this._zeroColumn] = 0;
+                            copy_of_grid[this._zeroRow, this._zeroColumn] = temp;
+                            i = 1;
+                            return new PuzzleGrid(copy_of_grid);
+                        }
+
+                    case 'L':
+                        {
+                            if (this._zeroColumn - 1 < 0)
+                                return null;
+
+                            int temp = copy_of_grid[this._zeroRow, this._zeroColumn - 1];
+                            copy_of_grid[this._zeroRow, this._zeroColumn - 1] = 0;
+                            copy_of_grid[this._zeroRow, this._zeroColumn] = temp;
+                            j = -1;
+                            return new PuzzleGrid(copy_of_grid);
+                        }
+
+                    case 'R':
+                        {
+                            if (this._zeroColumn + 1 >= this._gridSize)
+                                return null;
+
+                            int temp = copy_of_grid[this._zeroRow, this._zeroColumn + 1];
+                            copy_of_grid[this._zeroRow, this._zeroColumn + 1] = 0;
+                            copy_of_grid[this._zeroRow, this._zeroColumn] = temp;
+                            j = 1;
+
+                            return new PuzzleGrid(copy_of_grid);
+
+                        }
+
+                    default:
+                        return null;
+                }
+
+
+            }
+
+        }
+
+
     }
-}
