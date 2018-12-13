@@ -42,8 +42,8 @@ namespace AI_puzzle
             puzzle.printGrid();
 
             Algorithms algorithm = new Algorithms();
-            bool xd = algorithm.A_star(puzzle);
-            Console.WriteLine(xd);
+            algorithm.IDFS(puzzle);
+            //Console.WriteLine(xd);
         }
     }
 }

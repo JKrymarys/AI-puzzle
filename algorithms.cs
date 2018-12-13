@@ -5,6 +5,7 @@ namespace AI_puzzle
 {
     public class Algorithms 
     {
+        const int MAX_DEPTH = 30;
         public Algorithms()
         {
 
@@ -91,6 +92,12 @@ namespace AI_puzzle
             return false;
         }
 
+      
+      public void IDFS(PuzzleGrid grid)
+      {
+       var idfsSolver = new IDFS(); 
+       idfsSolver.iterativeDeepening(grid,MAX_DEPTH);
+      }
         public Boolean A_star(PuzzleGrid grid)
         {
             PriorityQueue<PuzzleGrid> frontier = new PriorityQueue<PuzzleGrid>();
