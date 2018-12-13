@@ -88,6 +88,8 @@ namespace AI_puzzle
                 }
             }
 
+            this._zeroColumn = _previousGrid._zeroColumn;
+            this._zeroRow = _previousGrid._zeroRow;
         }
 
         public void printGrid()
@@ -152,13 +154,12 @@ namespace AI_puzzle
             }
         }
 
-   public  bool Equals(PuzzleGrid a,PuzzleGrid b)
+        public  bool Equals(PuzzleGrid a,PuzzleGrid b)
         {
             if (a == null || b == null)
             {
                 return false;
             }
-
             else
             {
                 return (a.grid.Equals(b.grid));
@@ -168,90 +169,83 @@ namespace AI_puzzle
 
         public override int GetHashCode()
         {
-               string hash = "";
+            string hash = "";
             foreach (var el in this.grid )
             {
                     hash += el;
             }
             return Int32.Parse(hash);
         }
-            public  int GetHashCode(PuzzleGrid other)
+
+        public  int GetHashCode(PuzzleGrid other)
         {
             string hash = "";
             foreach (var el in other.grid )
             {
-                    hash += el;
+                hash += el;
             }
             return Int32.Parse(hash);
         }
 
 
-            public PuzzleGrid move(char direction)
+        public PuzzleGrid move(char direction)
+        {
+            var copy_of_grid = (int[,])grid.Clone();
+            var copy_zeroRow = this._zeroRow;
+            var copy_zeroColumn = this._zeroColumn;
+            switch (direction)
             {
-                var copy_of_grid = (int[,])grid.Clone();
-                int i = 0;
-                int j = 0;
-                switch (direction)
+                case 'U':
                 {
-                    case 'U':
-                        {
-                            if (this._zeroRow - 1 < 0)
-                                return null;
-
-                            var temp = copy_of_grid[this._zeroRow - 1, this._zeroColumn];
-                            copy_of_grid[this._zeroRow - 1, this._zeroColumn] = 0;
-                            copy_of_grid[this._zeroRow, this._zeroColumn] = temp;
-                            i = -1;
-
-                            var toReturn = new PuzzleGrid(copy_of_grid);
-                            return toReturn;
-                        }
-                    case 'D':
-                        {
-                            if (this._zeroRow + 1 >= this._gridSize)
-                                return null;
-
-                            var temp = copy_of_grid[this._zeroRow + 1, this._zeroColumn];
-                            copy_of_grid[this._zeroRow + 1, this._zeroColumn] = 0;
-                            copy_of_grid[this._zeroRow, this._zeroColumn] = temp;
-                            i = 1;
-                            return new PuzzleGrid(copy_of_grid);
-                        }
-
-                    case 'L':
-                        {
-                            if (this._zeroColumn - 1 < 0)
-                                return null;
-
-                            int temp = copy_of_grid[this._zeroRow, this._zeroColumn - 1];
-                            copy_of_grid[this._zeroRow, this._zeroColumn - 1] = 0;
-                            copy_of_grid[this._zeroRow, this._zeroColumn] = temp;
-                            j = -1;
-                            return new PuzzleGrid(copy_of_grid);
-                        }
-
-                    case 'R':
-                        {
-                            if (this._zeroColumn + 1 >= this._gridSize)
-                                return null;
-
-                            int temp = copy_of_grid[this._zeroRow, this._zeroColumn + 1];
-                            copy_of_grid[this._zeroRow, this._zeroColumn + 1] = 0;
-                            copy_of_grid[this._zeroRow, this._zeroColumn] = temp;
-                            j = 1;
-
-                            return new PuzzleGrid(copy_of_grid);
-
-                        }
-
-                    default:
+                    if (copy_zeroRow - 1 < 0)
                         return null;
+
+                    var temp = copy_of_grid[copy_zeroRow - 1, copy_zeroColumn];
+                    copy_of_grid[copy_zeroRow - 1, copy_zeroColumn] = 0;
+                    copy_of_grid[copy_zeroRow, copy_zeroColumn] = temp;
+                    copy_zeroRow--;
+                    return new PuzzleGrid(copy_of_grid);
                 }
 
+                case 'D':
+                {
+                    if (copy_zeroRow + 1 >= this._gridSize)
+                        return null;
 
+                    var temp = copy_of_grid[copy_zeroRow + 1, copy_zeroColumn];
+                    copy_of_grid[copy_zeroRow + 1, copy_zeroColumn] = 0;
+                    copy_of_grid[copy_zeroRow, copy_zeroColumn] = temp;
+                    copy_zeroRow++;
+                    return new PuzzleGrid(copy_of_grid);
+                }
+
+                case 'L':
+                {
+                    if (copy_zeroColumn - 1 < 0)
+                        return null;
+
+                    int temp = copy_of_grid[copy_zeroRow, copy_zeroColumn - 1];
+                    copy_of_grid[copy_zeroRow, copy_zeroColumn - 1] = 0;
+                    copy_of_grid[copy_zeroRow, copy_zeroColumn] = temp;
+                    copy_zeroColumn--;
+                    return new PuzzleGrid(copy_of_grid);
+                }
+
+                case 'R':
+                {
+                    if (copy_zeroColumn + 1 >= this._gridSize)
+                        return null;
+
+                    int temp = copy_of_grid[copy_zeroRow, copy_zeroColumn + 1];
+                    copy_of_grid[copy_zeroRow, copy_zeroColumn + 1] = 0;
+                    copy_of_grid[copy_zeroRow, copy_zeroColumn] = temp;
+                    copy_zeroColumn++;
+                    return new PuzzleGrid(copy_of_grid);
+                }
+
+                default:
+                    return null;
             }
-
         }
-
-
     }
+}
