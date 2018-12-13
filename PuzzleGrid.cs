@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 namespace AI_puzzle
 {
-    public class PuzzleGrid 
+    public class PuzzleGrid : IEqualityComparer<PuzzleGrid>
     {
         public int _gridSize;
         public int[,] grid; // <int, Field> ?
@@ -11,9 +12,6 @@ namespace AI_puzzle
         private int _zeroRow;
         private int _zeroColumn;
         //first init 
-
-        //not sure if we need dictionary, can be changed to sth else
-        private List<int[,]> doneMoves;
 
         private int getInvCount(int[,] grid)
         {
@@ -74,10 +72,6 @@ namespace AI_puzzle
             }
             this.grid = grid;
 
-            // if (!isSolvable())
-            // {
-            //     Console.WriteLine("Non solvable!");
-            // }
         }
 
 
@@ -140,8 +134,55 @@ namespace AI_puzzle
 
             else
             {
-                return (this.grid == ((PuzzleGrid)other).grid);
+                // return (this.grid.Equals(((PuzzleGrid)other).grid));
+                return this.GetHashCode().Equals(((PuzzleGrid)other).GetHashCode());
             }
+        }
+
+   public  bool Equals(PuzzleGrid other)
+        {
+            if ((other == null) || !this.GetType().Equals(other.GetType()))
+            {
+                return false;
+            }
+
+            else
+            {
+                 return (this.grid.Equals(((PuzzleGrid)other).grid));
+            }
+        }
+
+   public  bool Equals(PuzzleGrid a,PuzzleGrid b)
+        {
+            if (a == null || b == null)
+            {
+                return false;
+            }
+
+            else
+            {
+                return (a.grid.Equals(b.grid));
+            }
+        }
+
+
+        public override int GetHashCode()
+        {
+               string hash = "";
+            foreach (var el in this.grid )
+            {
+                    hash += el;
+            }
+            return Int32.Parse(hash);
+        }
+            public  int GetHashCode(PuzzleGrid other)
+        {
+            string hash = "";
+            foreach (var el in other.grid )
+            {
+                    hash += el;
+            }
+            return Int32.Parse(hash);
         }
 
 

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 namespace AI_puzzle
 {
-    public class Algorithms
+    public class Algorithms 
     {
         public Algorithms()
         {
@@ -37,10 +37,14 @@ namespace AI_puzzle
 
                     newPuzzleState.printGrid();
 
-                    if (newPuzzleState != null && !doneMoves.Contains(newPuzzleState))
+                    if (newPuzzleState != null )
                     {
-                        frontier.Enqueue(newPuzzleState);
-                        doneMoves.Add(newPuzzleState);
+                        Console.WriteLine(!doneMoves.Contains(newPuzzleState));
+                        if(!doneMoves.Contains(newPuzzleState))
+                        {
+                            frontier.Enqueue(newPuzzleState);
+                             doneMoves.Add(newPuzzleState);
+                        }
                         
                     }
                 }
