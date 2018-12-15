@@ -42,7 +42,7 @@ namespace AI_puzzle
             puzzle.printGrid();
 
             Algorithms algorithm = new Algorithms();
-            algorithm.IDFS(puzzle);
+            algorithm.BFTS(puzzle);
             //Console.WriteLine(xd);
         }
     }

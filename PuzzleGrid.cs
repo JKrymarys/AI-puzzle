@@ -304,6 +304,5 @@ namespace AI_puzzle
             }
             return distance_sum;
         }
-        }
     }
 }
