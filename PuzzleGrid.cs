@@ -247,5 +247,44 @@ namespace AI_puzzle
                     return null;
             }
         }
+
+        public int manhatann_heuristic() 
+        {
+            int distance_sum = 0;
+            int i = 0;
+            foreach (int element in grid)
+            {
+                if(element != 0)
+                {
+                    var xDestCord = (element - 1) / _gridSize;
+                    var yDestCord = (element - 1) % _gridSize;
+                    var xDistanceFromActual = (i % _gridSize) - xDestCord;
+                    var yDistanceFromActual = (i / _gridSize) - yDestCord;
+                    distance_sum += Math.Abs(xDistanceFromActual) + Math.Abs(yDistanceFromActual);
+                    i++;
+                }
+            }
+            return distance_sum;
+        }
+
+        public int diagonal_heuristic()
+        {
+            int distance_sum = 0;
+            int i = 0;
+            foreach (int element in grid)
+            {
+                if(element != 0)
+                {
+                    var xDestCord = (element - 1) / _gridSize;
+                    var yDestCord = (element - 1) % _gridSize;
+                    var xDistanceFromActual = (i % _gridSize) - xDestCord;
+                    var yDistanceFromActual = (i / _gridSize) - yDestCord;
+                    distance_sum += Math.Max(Math.Abs(xDistanceFromActual), Math.Abs(yDistanceFromActual));
+                    i++;
+                }
+            }
+            return distance_sum;
+        }
+        }
     }
 }
