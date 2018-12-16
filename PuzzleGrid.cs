@@ -45,12 +45,12 @@ namespace AI_puzzle
             {
                 if (_zeroRow % 2 != 0)
                 {
-                    if (inversionsCount % 2 == 0)
+                    if (inversionsCount % 2 != 0)
                         solvable = true;
                 }
                 else
                 {
-                    if (inversionsCount % 2 != 0)
+                    if (inversionsCount % 2 == 0)
                         solvable = true;
                 }
             }
