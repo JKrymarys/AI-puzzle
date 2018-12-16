@@ -172,5 +172,44 @@ namespace AI_puzzle
             }
             return false;
         }
+
+        public bool SMA(PuzzleGrid grid)
+        {
+            SimplePriorityQueue<PuzzleGrid> frontier = new SimplePriorityQueue<PuzzleGrid>();
+            HashSet<PuzzleGrid> doneMoves = new HashSet<PuzzleGrid>();
+            frontier.Enqueue(grid, 0);
+            doneMoves.Add(grid);
+            var previousCost = 0;
+            char[] possible_moves = { 'U', 'D', 'L', 'R' };
+
+            while (frontier.Count != 0)
+            {
+                grid = frontier.Dequeue();
+                foreach (char i in possible_moves)
+                {
+                    if (grid.checkIfSolved())
+                    {
+                        Console.WriteLine("SOLVED!");
+                        grid.printGrid();
+                        return true;
+                    }
+
+                    var newPuzzleState = grid.move(i);
+                    if(newPuzzleState == null)
+                        continue;
+
+                    if(!doneMoves.Contains(newPuzzleState))
+                    {
+                        grid._level_of_depth++;
+                        var priorityLevel = grid.manhatann_heuristic() + grid._level_of_depth;
+                        frontier.Enqueue(newPuzzleState, Math.Max(priorityLevel, previousCost));
+                        previousCost = priorityLevel;
+                        doneMoves.Add(newPuzzleState);
+                        grid = newPuzzleState;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }
