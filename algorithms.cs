@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Priority_Queue;
+
 namespace AI_puzzle
 {
     public class Algorithms 
@@ -100,15 +102,15 @@ namespace AI_puzzle
 
         public bool BFTS(PuzzleGrid grid)
         {
-            PriorityQueue<PuzzleGrid> frontier = new PriorityQueue<PuzzleGrid>();
+            SimplePriorityQueue<PuzzleGrid> frontier = new SimplePriorityQueue<PuzzleGrid>();
             HashSet<PuzzleGrid> doneMoves = new HashSet<PuzzleGrid>();
-            frontier.Add(0, grid);
+            frontier.Enqueue(grid, 0);
             doneMoves.Add(grid);
             char[] possible_moves = { 'U', 'D', 'L', 'R' };
 
             while (frontier.Count != 0)
             {
-                grid = frontier.Peek();
+                grid = frontier.Dequeue();
                 foreach (char i in possible_moves)
                 {
                     if (grid.checkIfSolved())
@@ -125,7 +127,7 @@ namespace AI_puzzle
                     if(!doneMoves.Contains(newPuzzleState))
                     {
                         var priorityLevel = grid.manhatann_heuristic();
-                        frontier.Add(priorityLevel, newPuzzleState);
+                        frontier.Enqueue(newPuzzleState, priorityLevel);
                         doneMoves.Add(newPuzzleState);
                         grid = newPuzzleState;
                     }
