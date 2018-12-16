@@ -8,10 +8,10 @@ namespace AI_puzzle
     {
         public int _gridSize;
         public int[,] grid; // <int, Field> ?
-        static public int[,] goalGrid;
         private int _zeroRow;
         private int _zeroColumn;
         //first init 
+        public int _level_of_depth;
 
         private int getInvCount(int[,] grid)
         {
@@ -61,6 +61,7 @@ namespace AI_puzzle
         {
             this._gridSize = grid.GetLength(0);
             var index = 0;
+            _level_of_depth = 0;
             foreach (int element in grid)
             {
                 if (element == 0)
@@ -87,7 +88,7 @@ namespace AI_puzzle
                     this.grid[x, y] = _previousGrid.grid[x, y];
                 }
             }
-
+            this._level_of_depth = _previousGrid._level_of_depth;
             this._zeroColumn = _previousGrid._zeroColumn;
             this._zeroRow = _previousGrid._zeroRow;
         }
