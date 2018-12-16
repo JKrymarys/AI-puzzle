@@ -72,7 +72,10 @@ namespace AI_puzzle
                 index++;
             }
             this.grid = grid;
-
+            if(!isSolvable())
+            {
+                throw new System.ArgumentException("Grid is no solvable", "original");
+            }
         }
 
 

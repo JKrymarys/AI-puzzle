@@ -16,34 +16,33 @@ namespace AI_puzzle
             //          "-s || --sma id_of_heurisic \t SMA* strategy for Breadth First Search \n");
 
 
-            // int [,] grid = new int[,] {
-            //     {3, 9, 1, 15},
-            //     {14, 11, 4, 6},
-            //     {13, 0, 10, 12},
-            //     {2, 7, 8, 5}
-            // };
-            // Console.Write("Enter the size of grid: ");
-            // int a = Convert.ToInt32(Console.Read());
-            // int [] grid = new int[a];
-            // Console.Write("Enter the grid");
-            // for (var i = 0; i < 4; i++)
-            // {
-            //     grid[i] = Convert.ToInt32(Console.ReadLine());
-            //     Console.WriteLine( grid[i]);
-            // }
-            // Console.ReadKey();
-            int [,] grid = new int[,] {
-               {1, 8, 2},
-               {0, 4, 3},
-               {7, 6, 5}
-            };
-
+            Console.Write("Enter the size of grid: ");
+            var gridSize = Convert.ToInt32(Console.ReadLine());
+            int[,] rowGrid = new int[gridSize,gridSize];
+            Console.WriteLine("Enter the grid, line by line with spaces(' '): ");
+            try
+            {
+                for (var x = 0; x < gridSize; x++)
+                {
+                    string[] s = Console.ReadLine().Split(' ');
+                    for (var y = 0; y < gridSize; y++)
+                    {
+                        rowGrid[x,y] = Int32.Parse(s[y]);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("{0} Exception caught.", e);
+            }
+           
+            var grid = rowGrid;
+            
             PuzzleGrid puzzle = new PuzzleGrid(grid);
             puzzle.printGrid();
 
             Algorithms algorithm = new Algorithms();
             algorithm.SMA(puzzle);
-            //Console.WriteLine(xd);
         }
     }
 }
