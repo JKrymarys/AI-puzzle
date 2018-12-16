@@ -141,7 +141,7 @@ namespace AI_puzzle
             }
         }
 
-   public  bool Equals(PuzzleGrid other)
+        public  bool Equals(PuzzleGrid other)
         {
             if ((other == null) || !this.GetType().Equals(other.GetType()))
             {
