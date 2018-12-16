@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <RootNamespace>AI_puzzle</RootNamespace>
   </PropertyGroup>
-
+  <ItemGroup>
+    <PackageReference Include="OptimizedPriorityQueue" Version="*"/>
+  </ItemGroup>
 </Project>

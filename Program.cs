@@ -42,8 +42,8 @@ namespace AI_puzzle
             puzzle.printGrid();
 
             Algorithms algorithm = new Algorithms();
-            bool xd = algorithm.BFS(puzzle);
-            Console.WriteLine(xd);
+            algorithm.BFTS(puzzle);
+            //Console.WriteLine(xd);
         }
     }
 }
