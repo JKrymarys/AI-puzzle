@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Diagnostics;
 namespace AI_puzzle
 {
     class Program
@@ -19,6 +19,7 @@ namespace AI_puzzle
             Console.Write("Enter the size of grid: ");
             var gridSize = Convert.ToInt32(Console.ReadLine());
             int[,] rowGrid = new int[gridSize,gridSize];
+           
             Console.WriteLine("Enter the grid, line by line with spaces(' '): ");
             try
             {
@@ -36,60 +37,83 @@ namespace AI_puzzle
                 Console.WriteLine("{0} Exception caught.", e);
             }
 
+            Stopwatch watch = new Stopwatch();
+            long elapsedMs;
             var grid = rowGrid;
             PuzzleGrid puzzle = new PuzzleGrid(grid);
             Console.WriteLine("Enter the algorith: ");
             string[] z = Console.ReadLine().Split(' ');
             string algorithm = z[0];
 
+            Console.WriteLine("Give the order of moves: ");
+            z = Console.ReadLine().Split(' ');
+            char[] order = new char[4];
+            for(int i = 0; i < 4; i++)
+            {
+                order[i] = z[0][i];
+            }
+
+            Algorithms al = new Algorithms(order);
             switch(algorithm)
             {
                 case "-b":
                 case "--bfs":
                 {
-                    string order = z[1];
-                    Algorithms al = new Algorithms();
+                    watch = Stopwatch.StartNew();
                     al.BFS(puzzle);
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    Console.WriteLine("Elapsed time: {0}", elapsedMs);
                     break;
                 }
                 case "-d":
                 case "--dfs":
                 {
-                    string order = z[1];
-                    Algorithms al = new Algorithms();
+                    watch = Stopwatch.StartNew();
                     al.DFS(puzzle);
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    Console.WriteLine("Elapsed time: {0}", elapsedMs);
                     break;
                 }
                 case "-i":
                 case "--idfs":
                 {
-                    string order = z[1];
-                    Algorithms al = new Algorithms();
+                    watch = Stopwatch.StartNew();
                     al.IDFS(puzzle);
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    Console.WriteLine("Elapsed time: {0}", elapsedMs);
                     break;
                 }
                 case "-h":
                 case "--bf":
                 {
-                    var order = Int32.Parse(z[1]);
-                    Algorithms al = new Algorithms();
+                    watch = Stopwatch.StartNew();
                     al.BFTS(puzzle);
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    Console.WriteLine("Elapsed time: {0}", elapsedMs);
                     break;
                 }
                 case "-a":
                 case "--astar":
                 {
-                    var order = Int32.Parse(z[1]);
-                    Algorithms al = new Algorithms();
+                    watch = Stopwatch.StartNew();
                     al.ASTAR(puzzle);
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    Console.WriteLine("Elapsed time: {0}", elapsedMs);
                     break;
                 }
                 case "-s":
                 case "--sma":
                 {
-                    var order = Int32.Parse(z[1]);
-                    Algorithms al = new Algorithms();
+                    watch = Stopwatch.StartNew();
                     al.SMA(puzzle);
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    Console.WriteLine("Elapsed time: {0}", elapsedMs);
                     break;
                 }
                 default:

@@ -8,9 +8,10 @@ namespace AI_puzzle
     public class Algorithms 
     {
         const int MAX_DEPTH = 30;
-        public Algorithms()
+        char[] possible_moves;
+        public Algorithms(char[] _moves)
         {
-
+            this.possible_moves = _moves;
         }
         public Boolean BFS(PuzzleGrid grid)
         {
@@ -20,7 +21,7 @@ namespace AI_puzzle
             frontier.Enqueue(grid);
             doneMoves.Add(grid);
 
-            char[] possible_moves = { 'U', 'D', 'L', 'R' };
+           // possible_moves = { 'U', 'D', 'L', 'R' };
 
             while (frontier.Count != 0)
             {
