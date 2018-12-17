@@ -24,7 +24,7 @@ namespace AI_puzzle
                     {
                         for (var n = y; n < _gridSize; n++)
                         {
-                            if (grid[x, y] > grid[m, n])
+                            if (grid[x, y] > grid[m, n] && grid[m, n]!=0)
                                 inversCount++;
                         }
                     }
