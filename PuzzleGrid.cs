@@ -173,22 +173,24 @@ namespace AI_puzzle
 
         public override int GetHashCode()
         {
-            string hash = "";
+            int hash = 17;
             foreach (var el in this.grid )
             {
-                    hash += el;
+
+                hash = hash * 23 + ((el != null) ? el.GetHashCode() : 0);
             }
-            return Int32.Parse(hash);
+            return hash;
         }
 
         public  int GetHashCode(PuzzleGrid other)
         {
-            string hash = "";
-            foreach (var el in other.grid )
+            int hash = 17;
+            foreach (var el in this.grid)
             {
-                hash += el;
+
+                hash = hash * 23 + ((el != null) ? el.GetHashCode() : 0);
             }
-            return Int32.Parse(hash);
+            return hash;
         }
 
 
