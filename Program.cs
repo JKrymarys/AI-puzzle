@@ -41,6 +41,10 @@ namespace AI_puzzle
             long elapsedMs;
             var grid = rowGrid;
             PuzzleGrid puzzle = new PuzzleGrid(grid);
+            if (!puzzle.isSolvable())
+            {
+                throw new System.ArgumentException("Grid is no solvable", "original");
+            }
             Console.WriteLine("Enter the algorith: ");
             string[] z = Console.ReadLine().Split(' ');
             string algorithm = z[0];
