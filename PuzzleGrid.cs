@@ -62,6 +62,7 @@ namespace AI_puzzle
             this._gridSize = grid.GetLength(0);
             var index = 0;
             _level_of_depth = 0;
+            //wtf ?
             foreach (int element in grid)
             {
                 if (element == 0)

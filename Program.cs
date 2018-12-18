@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 namespace AI_puzzle
 {
     class Program
@@ -19,7 +20,15 @@ namespace AI_puzzle
             Console.Write("Enter the size of grid: ");
             var gridSize = Convert.ToInt32(Console.ReadLine());
             int[,] rowGrid = new int[gridSize,gridSize];
-           
+            string pattern = @"[udlr]{4}";
+            Match result;
+            char[] order = new char[4];
+            Stopwatch watch = new Stopwatch();
+            long elapsedMs; 
+            int[,] grid;
+            PuzzleGrid puzzle;
+            Algorithms al;
+
             Console.WriteLine("Enter the grid, line by line with spaces(' '): ");
             try
             {
@@ -36,24 +45,25 @@ namespace AI_puzzle
             {
                 Console.WriteLine("{0} Exception caught.", e);
             }
-
-            Stopwatch watch = new Stopwatch();
-            long elapsedMs;
-            var grid = rowGrid;
-            PuzzleGrid puzzle = new PuzzleGrid(grid);
+  
+            grid = rowGrid;
+            puzzle = new PuzzleGrid(grid);
             Console.WriteLine("Enter the algorith: ");
             string[] z = Console.ReadLine().Split(' ');
             string algorithm = z[0];
-
             Console.WriteLine("Give the order of moves: ");
-            z = Console.ReadLine().Split(' ');
-            char[] order = new char[4];
+            
+            do{
+                z = Console.ReadLine().Split(' ');
+                result = Regex.Match(z[0], pattern);
+            }while(!result.Success);
+           
             for(int i = 0; i < 4; i++)
             {
                 order[i] = z[0][i];
             }
 
-            Algorithms al = new Algorithms(order);
+            al = new Algorithms(order);
             switch(algorithm)
             {
                 case "-b":
