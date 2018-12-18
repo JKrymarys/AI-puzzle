@@ -45,9 +45,14 @@ namespace AI_puzzle
             {
                 Console.WriteLine("{0} Exception caught.", e);
             }
-  
-            grid = rowGrid;
-            puzzle = new PuzzleGrid(grid);
+
+             watch = new Stopwatch();
+             grid = rowGrid;
+             puzzle = new PuzzleGrid(grid);
+            if (!puzzle.isSolvable())
+            {
+                throw new System.ArgumentException("Grid is no solvable", "original");
+            }
             Console.WriteLine("Enter the algorith: ");
             string[] z = Console.ReadLine().Split(' ');
             string algorithm = z[0];

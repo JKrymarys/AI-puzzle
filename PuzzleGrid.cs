@@ -30,6 +30,7 @@ namespace AI_puzzle
                     }
                 }
             }
+            Console.WriteLine(inversCount);
             return inversCount;
         }
         public bool isSolvable()
@@ -62,7 +63,6 @@ namespace AI_puzzle
             this._gridSize = grid.GetLength(0);
             var index = 0;
             _level_of_depth = 0;
-            //wtf ?
             foreach (int element in grid)
             {
                 if (element == 0)
@@ -73,10 +73,7 @@ namespace AI_puzzle
                 index++;
             }
             this.grid = grid;
-            if(!isSolvable())
-            {
-                throw new System.ArgumentException("Grid is no solvable", "original");
-            }
+
         }
 
 
@@ -178,7 +175,7 @@ namespace AI_puzzle
             foreach (var el in this.grid )
             {
 
-                hash = hash * 23 + ((el != null) ? el.GetHashCode() : 0);
+                hash = hash * 23 + el.GetHashCode();
             }
             return hash;
         }
@@ -189,7 +186,7 @@ namespace AI_puzzle
             foreach (var el in this.grid)
             {
 
-                hash = hash * 23 + ((el != null) ? el.GetHashCode() : 0);
+                hash = hash * 23 + el.GetHashCode();
             }
             return hash;
         }
