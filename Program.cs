@@ -53,27 +53,30 @@ namespace AI_puzzle
             {
                 throw new System.ArgumentException("Grid is no solvable", "original");
             }
-            Console.WriteLine("Enter the algorith: ");
-            string[] z = Console.ReadLine().Split(' ');
-            string algorithm = z[0];
-            Console.WriteLine("Give the order of moves: ");
             
+            string[] z; // to gather input
+
+            Console.WriteLine("Give the order of moves: ");
             do{
                 z = Console.ReadLine().Split(' ');
                 result = Regex.Match(z[0], pattern);
             }while(!result.Success);
-           
+
             for(int i = 0; i < 4; i++)
             {
                 order[i] = z[0][i];
             }
 
+            Console.WriteLine("Enter the algorith: ");  
+            z = Console.ReadLine().Split(' ');
+            string algorithm = z[0];
             al = new Algorithms(order);
             switch(algorithm)
             {
                 case "-b":
                 case "--bfs":
                 {
+                    Console.WriteLine("BFS started:");
                     watch = Stopwatch.StartNew();
                     al.BFS(puzzle);
                     watch.Stop();
@@ -84,6 +87,7 @@ namespace AI_puzzle
                 case "-d":
                 case "--dfs":
                 {
+                    Console.WriteLine("DFS started:");
                     watch = Stopwatch.StartNew();
                     al.DFS(puzzle);
                     watch.Stop();
@@ -94,6 +98,7 @@ namespace AI_puzzle
                 case "-i":
                 case "--idfs":
                 {
+                    Console.WriteLine("IDFS started:");
                     watch = Stopwatch.StartNew();
                     al.IDFS(puzzle);
                     watch.Stop();
@@ -104,6 +109,7 @@ namespace AI_puzzle
                 case "-h":
                 case "--bf":
                 {
+                    Console.WriteLine("BF started:");
                     watch = Stopwatch.StartNew();
                     al.BFTS(puzzle);
                     watch.Stop();
@@ -114,6 +120,7 @@ namespace AI_puzzle
                 case "-a":
                 case "--astar":
                 {
+                    Console.WriteLine("A* started:");
                     watch = Stopwatch.StartNew();
                     al.ASTAR(puzzle);
                     watch.Stop();
@@ -124,6 +131,7 @@ namespace AI_puzzle
                 case "-s":
                 case "--sma":
                 {
+                    Console.WriteLine("SMA* started:");
                     watch = Stopwatch.StartNew();
                     al.SMA(puzzle);
                     watch.Stop();

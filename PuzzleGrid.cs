@@ -12,6 +12,7 @@ namespace AI_puzzle
         private int _zeroColumn;
         //first init 
         public int _level_of_depth;
+        string history;
 
         private int getInvCount(int[,] grid)
         {
@@ -60,6 +61,29 @@ namespace AI_puzzle
 
         public PuzzleGrid(int[,] grid)
         {
+            if(this.history == null)
+                this.history = "" ;
+            
+            this._gridSize = grid.GetLength(0);
+            var index = 0;
+            _level_of_depth = 0;
+            foreach (int element in grid)
+            {
+                if (element == 0)
+                {
+                    _zeroRow = (index / _gridSize);
+                    _zeroColumn = (index % _gridSize);
+                }
+                index++;
+            }
+            this.grid = grid;
+
+        }
+
+        public PuzzleGrid(int[,] grid, string old_history)
+        {
+            this.history = old_history;
+            
             this._gridSize = grid.GetLength(0);
             var index = 0;
             _level_of_depth = 0;
@@ -81,7 +105,7 @@ namespace AI_puzzle
         public PuzzleGrid(PuzzleGrid _previousGrid)
         {
             this._gridSize = _previousGrid._gridSize;
-
+            this.history = _previousGrid.history;
             for (var x = 0; x < _gridSize; x++)
             {
                 for (var y = 0; y < _gridSize; y++)
@@ -105,6 +129,7 @@ namespace AI_puzzle
                 }
                 Console.WriteLine(temp);
             }
+            Console.WriteLine("History: " + history.ToString());
         }
 
         public bool checkIfSolved()
@@ -129,33 +154,6 @@ namespace AI_puzzle
             return solved;
         }
 
-        public override bool Equals(Object other)
-        {
-            if ((other == null) || !this.GetType().Equals(other.GetType()))
-            {
-                return false;
-            }
-
-            else
-            {
-                // return (this.grid.Equals(((PuzzleGrid)other).grid));
-                return this.GetHashCode().Equals(((PuzzleGrid)other).GetHashCode());
-            }
-        }
-
-        public  bool Equals(PuzzleGrid other)
-        {
-            if ((other == null) || !this.GetType().Equals(other.GetType()))
-            {
-                return false;
-            }
-
-            else
-            {
-                 return (this.grid.Equals(((PuzzleGrid)other).grid));
-            }
-        }
-
         public  bool Equals(PuzzleGrid a,PuzzleGrid b)
         {
             if (a == null || b == null)
@@ -169,17 +167,6 @@ namespace AI_puzzle
         }
 
 
-        public override int GetHashCode()
-        {
-            int hash = 17;
-            foreach (var el in this.grid )
-            {
-
-                hash = hash * 23 + el.GetHashCode();
-            }
-            return hash;
-        }
-
         public  int GetHashCode(PuzzleGrid other)
         {
             int hash = 17;
@@ -190,7 +177,6 @@ namespace AI_puzzle
             }
             return hash;
         }
-
 
         public PuzzleGrid move(char direction)
         {
@@ -208,7 +194,8 @@ namespace AI_puzzle
                     copy_of_grid[copy_zeroRow - 1, copy_zeroColumn] = 0;
                     copy_of_grid[copy_zeroRow, copy_zeroColumn] = temp;
                     copy_zeroRow--;
-                    return new PuzzleGrid(copy_of_grid);
+                    this.history += direction.ToString();
+                    return new PuzzleGrid(copy_of_grid, this.history);
                 }
 
                 case 'D':
@@ -220,7 +207,8 @@ namespace AI_puzzle
                     copy_of_grid[copy_zeroRow + 1, copy_zeroColumn] = 0;
                     copy_of_grid[copy_zeroRow, copy_zeroColumn] = temp;
                     copy_zeroRow++;
-                    return new PuzzleGrid(copy_of_grid);
+                    this.history += direction.ToString();
+                    return new PuzzleGrid(copy_of_grid, this.history);
                 }
 
                 case 'L':
@@ -232,7 +220,8 @@ namespace AI_puzzle
                     copy_of_grid[copy_zeroRow, copy_zeroColumn - 1] = 0;
                     copy_of_grid[copy_zeroRow, copy_zeroColumn] = temp;
                     copy_zeroColumn--;
-                    return new PuzzleGrid(copy_of_grid);
+                    this.history += direction.ToString();
+                    return new PuzzleGrid(copy_of_grid, this.history);
                 }
 
                 case 'R':
@@ -244,7 +233,8 @@ namespace AI_puzzle
                     copy_of_grid[copy_zeroRow, copy_zeroColumn + 1] = 0;
                     copy_of_grid[copy_zeroRow, copy_zeroColumn] = temp;
                     copy_zeroColumn++;
-                    return new PuzzleGrid(copy_of_grid);
+                    this.history += direction.ToString();
+                    return new PuzzleGrid(copy_of_grid, this.history);
                 }
 
                 default:
