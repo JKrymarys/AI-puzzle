@@ -20,34 +20,25 @@ namespace AI_puzzle
 
             frontier.Enqueue(grid);
             doneMoves.Add(grid);
-            Console.WriteLine(this.possible_moves);
-           // possible_moves = { 'U', 'D', 'L', 'R' };
 
             while (frontier.Count != 0)
             {
                 grid = frontier.Dequeue();
+
+                if (grid.checkIfSolved())
+                {
+                    Console.WriteLine("SOLVED!");
+                    grid.printGrid();
+                    return true;
+                }
+
                 foreach (char i in possible_moves)
                 {
-                    //Console.WriteLine(i);
-                    if (grid.checkIfSolved())
-                    {
-                        Console.WriteLine("SOLVED!");
-                        grid.printGrid();
-                        return true;
-                    }
-                    //Console.WriteLine(grid.move(i));
-
                     var newPuzzleState = grid.move(i);
-                    if(newPuzzleState == null)
-                        continue;
-
-                    //Console.WriteLine(!doneMoves.Contains(newPuzzleState));
-                    if(!doneMoves.Contains(newPuzzleState))
+                    if(newPuzzleState != null && !doneMoves.Contains(newPuzzleState))
                     {
                         frontier.Enqueue(newPuzzleState);
                         doneMoves.Add(newPuzzleState);
-                        grid = newPuzzleState;
-                        //newPuzzleState.printGrid();
                     }
                 }
             }
@@ -62,33 +53,28 @@ namespace AI_puzzle
             frontier.Push(grid);
             doneMoves.Add(grid);
 
-            // char[] possible_moves = { 'U', 'D', 'L', 'R' };
 
             while (frontier.Count != 0)
             {
                 grid = frontier.Pop();
+
+                if (grid.checkIfSolved())
+                {
+                    Console.WriteLine("SOLVED!");
+                    grid.printGrid();
+                    return true;
+                }
+
                 foreach (char i in possible_moves)
                 {
-                    //Console.WriteLine(i);
-                    if (grid.checkIfSolved())
-                    {
-                        Console.WriteLine("SOLVED!");
-                        grid.printGrid();
-                        return true;
-                    }
-
                     var newPuzzleState = grid.move(i);
-                    if(newPuzzleState == null)
-                        continue;
 
-                    //Console.WriteLine(!doneMoves.Contains(newPuzzleState));
-                    if(!doneMoves.Contains(newPuzzleState))
+                    if(newPuzzleState != null && !doneMoves.Contains(newPuzzleState))
                     {
                         frontier.Push(newPuzzleState);
                         doneMoves.Add(newPuzzleState);
-                        grid = newPuzzleState;
-                        // newPuzzleState.printGrid();
                     }
+                       
                 }
             }
             return false;
@@ -104,32 +90,30 @@ namespace AI_puzzle
         {
             SimplePriorityQueue<PuzzleGrid> frontier = new SimplePriorityQueue<PuzzleGrid>();
             HashSet<PuzzleGrid> doneMoves = new HashSet<PuzzleGrid>();
+
             frontier.Enqueue(grid, 0);
             doneMoves.Add(grid);
-            // char[] possible_moves = { 'U', 'D', 'L', 'R' };
 
             while (frontier.Count != 0)
             {
                 grid = frontier.Dequeue();
+
+                if (grid.checkIfSolved())
+                {
+                    Console.WriteLine("SOLVED!");
+                    grid.printGrid();
+                    return true;
+                }
+
                 foreach (char i in possible_moves)
                 {
-                    if (grid.checkIfSolved())
-                    {
-                        Console.WriteLine("SOLVED!");
-                        grid.printGrid();
-                        return true;
-                    }
-
                     var newPuzzleState = grid.move(i);
-                    if(newPuzzleState == null)
-                        continue;
 
-                    if(!doneMoves.Contains(newPuzzleState))
+                    if(newPuzzleState != null && !doneMoves.Contains(newPuzzleState))
                     {
                         var priorityLevel = grid.manhatann_heuristic();
                         frontier.Enqueue(newPuzzleState, priorityLevel);
                         doneMoves.Add(newPuzzleState);
-                        grid = newPuzzleState;
                     }
                 }
             }
@@ -140,33 +124,31 @@ namespace AI_puzzle
         {
             SimplePriorityQueue<PuzzleGrid> frontier = new SimplePriorityQueue<PuzzleGrid>();
             HashSet<PuzzleGrid> doneMoves = new HashSet<PuzzleGrid>();
-            frontier.Enqueue(grid, 0);
-            doneMoves.Add(grid);
-            // char[] possible_moves = { 'U', 'D', 'L', 'R' };
 
+            frontier.Enqueue(grid, 0); //according to assumtions
+            doneMoves.Add(grid);
+        
             while (frontier.Count != 0)
             {
                 grid = frontier.Dequeue();
+
+                if (grid.checkIfSolved())
+                {
+                    Console.WriteLine("SOLVED!");
+                    grid.printGrid();
+                    return true;
+                }
+
                 foreach (char i in possible_moves)
                 {
-                    if (grid.checkIfSolved())
-                    {
-                        Console.WriteLine("SOLVED!");
-                        grid.printGrid();
-                        return true;
-                    }
-
                     var newPuzzleState = grid.move(i);
-                    if(newPuzzleState == null)
-                        continue;
 
-                    if(!doneMoves.Contains(newPuzzleState))
+                    if(newPuzzleState != null && !doneMoves.Contains(newPuzzleState))
                     {
                         grid._level_of_depth++;
                         var priorityLevel = grid.manhatann_heuristic() + grid._level_of_depth;
                         frontier.Enqueue(newPuzzleState, priorityLevel);
                         doneMoves.Add(newPuzzleState);
-                        grid = newPuzzleState;
                     }
                 }
             }
@@ -177,35 +159,33 @@ namespace AI_puzzle
         {
             SimplePriorityQueue<PuzzleGrid> frontier = new SimplePriorityQueue<PuzzleGrid>();
             HashSet<PuzzleGrid> doneMoves = new HashSet<PuzzleGrid>();
+
             frontier.Enqueue(grid, 0);
             doneMoves.Add(grid);
             var previousCost = 0;
-            // char[] possible_moves = { 'U', 'D', 'L', 'R' };
 
             while (frontier.Count != 0)
             {
                 grid = frontier.Dequeue();
+
+                if (grid.checkIfSolved())
+                {
+                    Console.WriteLine("SOLVED!");
+                    grid.printGrid();
+                    return true;
+                }
+
                 foreach (char i in possible_moves)
                 {
-                    if (grid.checkIfSolved())
-                    {
-                        Console.WriteLine("SOLVED!");
-                        grid.printGrid();
-                        return true;
-                    }
-
                     var newPuzzleState = grid.move(i);
-                    if(newPuzzleState == null)
-                        continue;
 
-                    if(!doneMoves.Contains(newPuzzleState))
+                    if(newPuzzleState != null && !doneMoves.Contains(newPuzzleState))
                     {
                         grid._level_of_depth++;
                         var priorityLevel = grid.manhatann_heuristic() + grid._level_of_depth;
                         frontier.Enqueue(newPuzzleState, Math.Max(priorityLevel, previousCost));
                         previousCost = priorityLevel;
                         doneMoves.Add(newPuzzleState);
-                        grid = newPuzzleState;
                     }
                 }
             }
