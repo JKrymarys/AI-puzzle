@@ -32,7 +32,7 @@ namespace AI_puzzle
                     }
                 }
             }
-            Console.WriteLine(inversCount);
+            // Console.WriteLine(inversCount);
             return inversCount;
         }
         public bool isSolvable()
@@ -203,8 +203,7 @@ namespace AI_puzzle
             {
                     hash += el;
             }
-            int hashtoReturn = (Int32.Parse(hash)%(2147483646));
-            return hashtoReturn;
+            return hash.GetHashCode();
         }
 
         // public int GetHashCode(PuzzleGrid other)

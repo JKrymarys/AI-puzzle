@@ -52,10 +52,10 @@ namespace AI_puzzle
              watch = new Stopwatch();
              grid = rowGrid;
              puzzle = new PuzzleGrid(grid);
-            if (!puzzle.isSolvable())
-            {
-                throw new System.ArgumentException("Grid is no solvable", "original");
-            }
+            //if (!puzzle.isSolvable())
+            //{
+            //    throw new System.ArgumentException("Grid is no solvable", "original");
+            //}
             
             string[] input; // to gather input
 
