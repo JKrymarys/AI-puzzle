@@ -130,7 +130,7 @@ namespace AI_puzzle
                 }
                 Console.WriteLine(temp);
             }
-          //  Console.WriteLine("History: " + history.ToString());
+            Console.WriteLine("History: " + history.ToString());
         }
 
         public bool checkIfSolved()
@@ -219,6 +219,7 @@ namespace AI_puzzle
         public PuzzleGrid move(char direction)
         {
             var copy_of_grid = (int[,])grid.Clone();
+            string copy_of_history = (string)history.Clone();
             var copy_zeroRow = this._zeroRow;
             var copy_zeroColumn = this._zeroColumn;
             switch (direction)
@@ -232,8 +233,8 @@ namespace AI_puzzle
                     copy_of_grid[copy_zeroRow - 1, copy_zeroColumn] = 0;
                     copy_of_grid[copy_zeroRow, copy_zeroColumn] = temp;
                     copy_zeroRow--;
-                    this.history += direction.ToString();
-                    return new PuzzleGrid(copy_of_grid, this.history);
+                    copy_of_history += direction.ToString();
+                    return new PuzzleGrid(copy_of_grid, copy_of_history);
                 }
 
                 case 'd':
@@ -245,8 +246,8 @@ namespace AI_puzzle
                     copy_of_grid[copy_zeroRow + 1, copy_zeroColumn] = 0;
                     copy_of_grid[copy_zeroRow, copy_zeroColumn] = temp;
                     copy_zeroRow++;
-                    this.history += direction.ToString();
-                    return new PuzzleGrid(copy_of_grid, this.history);
+                    copy_of_history += direction.ToString();
+                    return new PuzzleGrid(copy_of_grid, copy_of_history);
                 }
 
                 case 'l':
@@ -258,8 +259,8 @@ namespace AI_puzzle
                     copy_of_grid[copy_zeroRow, copy_zeroColumn - 1] = 0;
                     copy_of_grid[copy_zeroRow, copy_zeroColumn] = temp;
                     copy_zeroColumn--;
-                    this.history += direction.ToString();
-                    return new PuzzleGrid(copy_of_grid, this.history);
+                    copy_of_history += direction.ToString();
+                    return new PuzzleGrid(copy_of_grid,copy_of_history);
                 }
 
                 case 'r':
@@ -271,8 +272,8 @@ namespace AI_puzzle
                     copy_of_grid[copy_zeroRow, copy_zeroColumn + 1] = 0;
                     copy_of_grid[copy_zeroRow, copy_zeroColumn] = temp;
                     copy_zeroColumn++;
-                    this.history += direction.ToString();
-                    return new PuzzleGrid(copy_of_grid, this.history);
+                    copy_of_history += direction.ToString();
+                    return new PuzzleGrid(copy_of_grid, copy_of_history);
                 }
 
                 default:
