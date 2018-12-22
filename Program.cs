@@ -107,7 +107,7 @@ namespace AI_puzzle
                 {
                     Console.WriteLine("BFS started:");
                     watch = Stopwatch.StartNew();
-                    al.BFS(puzzle);
+                    Console.WriteLine(al.BFS(puzzle));
                     watch.Stop();
                     elapsedMs = watch.ElapsedMilliseconds;
                     Console.WriteLine("Elapsed time: {0} ms", elapsedMs);

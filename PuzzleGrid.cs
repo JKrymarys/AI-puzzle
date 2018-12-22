@@ -185,7 +185,7 @@ namespace AI_puzzle
             var copy_zeroColumn = this._zeroColumn;
             switch (direction)
             {
-                case 'U':
+                case 'u':
                 {
                     if (copy_zeroRow - 1 < 0)
                         return null;
@@ -198,7 +198,7 @@ namespace AI_puzzle
                     return new PuzzleGrid(copy_of_grid, this.history);
                 }
 
-                case 'D':
+                case 'd':
                 {
                     if (copy_zeroRow + 1 >= this._gridSize)
                         return null;
@@ -211,7 +211,7 @@ namespace AI_puzzle
                     return new PuzzleGrid(copy_of_grid, this.history);
                 }
 
-                case 'L':
+                case 'l':
                 {
                     if (copy_zeroColumn - 1 < 0)
                         return null;
@@ -224,7 +224,7 @@ namespace AI_puzzle
                     return new PuzzleGrid(copy_of_grid, this.history);
                 }
 
-                case 'R':
+                case 'r':
                 {
                     if (copy_zeroColumn + 1 >= this._gridSize)
                         return null;
