@@ -284,21 +284,24 @@ namespace AI_puzzle
         public int manhatann_heuristic() 
         {
             int distance_sum = 0;
-            int i = 0;
             int xDestCord;
             int yDestCord;
             int xDistanceFromActual;
             int yDistanceFromActual;
-            foreach (int element in grid)
+            int val;
+            for (var x = 0; x < _gridSize; x++)
             {
-                if(element != 0)
+                for (var y = 0; y < _gridSize; y++)
                 {
-                    xDestCord = (element - 1) / _gridSize;
-                    yDestCord = (element - 1) % _gridSize;
-                    xDistanceFromActual = (i % _gridSize) - xDestCord;
-                    yDistanceFromActual = (i / _gridSize) - yDestCord;
-                    distance_sum += Math.Abs(xDistanceFromActual) + Math.Abs(yDistanceFromActual);
-                    i++;
+                    val = grid[x,y];
+                    if(val != 0)
+                    {
+                        xDestCord = (val - 1) / _gridSize;
+                        yDestCord = (val - 1) % _gridSize;
+                        xDistanceFromActual = x - xDestCord;
+                        yDistanceFromActual = y - yDestCord;
+                        distance_sum += Math.Abs(xDistanceFromActual) + Math.Abs(yDistanceFromActual);
+                    }
                 }
             }
             return distance_sum;
@@ -307,17 +310,24 @@ namespace AI_puzzle
         public int diagonal_heuristic()
         {
             int distance_sum = 0;
-            int i = 0;
-            foreach (int element in grid)
+            int xDestCord;
+            int yDestCord;
+            int xDistanceFromActual;
+            int yDistanceFromActual;
+            int val;
+            for (var x = 0; x < _gridSize; x++)
             {
-                if(element != 0)
+                for (var y = 0; y < _gridSize; y++)
                 {
-                    var xDestCord = (element - 1) / _gridSize;
-                    var yDestCord = (element - 1) % _gridSize;
-                    var xDistanceFromActual = (i % _gridSize) - xDestCord;
-                    var yDistanceFromActual = (i / _gridSize) - yDestCord;
-                    distance_sum += Math.Max(Math.Abs(xDistanceFromActual), Math.Abs(yDistanceFromActual));
-                    i++;
+                    val = grid[x,y];
+                    if(val != 0)
+                    {
+                        xDestCord = (val - 1) / _gridSize;
+                        yDestCord = (val - 1) % _gridSize;
+                        xDistanceFromActual = x - xDestCord;
+                        yDistanceFromActual = y - yDestCord;
+                        distance_sum += Math.Max(Math.Abs(xDistanceFromActual), Math.Abs(yDistanceFromActual));
+                    }
                 }
             }
             return distance_sum;
@@ -326,17 +336,24 @@ namespace AI_puzzle
         public double euclides_heuristic()
         {
             double distance_sum = 0;
-            int i = 0;
-            foreach (int element in grid)
+            int xDestCord;
+            int yDestCord;
+            int xDistanceFromActual;
+            int yDistanceFromActual;
+            int val;
+            for (var x = 0; x < _gridSize; x++)
             {
-                if(element != 0)
+                for (var y = 0; y < _gridSize; y++)
                 {
-                    var xDestCord = (element - 1) / _gridSize;
-                    var yDestCord = (element - 1) % _gridSize;
-                    var xDistanceFromActual = (i % _gridSize) - xDestCord;
-                    var yDistanceFromActual = (i / _gridSize) - yDestCord;
-                    distance_sum += Math.Sqrt(Math.Pow(xDistanceFromActual,2) + Math.Pow(yDistanceFromActual, 2));
-                    i++;
+                    val = grid[x,y];
+                    if(val != 0)
+                    {
+                        xDestCord = (val - 1) / _gridSize;
+                        yDestCord = (val - 1) % _gridSize;
+                        xDistanceFromActual = x - xDestCord;
+                        yDistanceFromActual = y - yDestCord;
+                        distance_sum += Math.Sqrt(Math.Pow(xDistanceFromActual,2) + Math.Pow(yDistanceFromActual, 2));
+                    }
                 }
             }
             return distance_sum;
