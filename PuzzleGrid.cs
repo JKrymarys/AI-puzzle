@@ -130,7 +130,7 @@ namespace AI_puzzle
                 }
                 Console.WriteLine(temp);
             }
-          //  Console.WriteLine("History: " + history.ToString());
+            Console.WriteLine("History: " + history.ToString());
         }
 
         public bool checkIfSolved()
@@ -284,14 +284,18 @@ namespace AI_puzzle
         {
             int distance_sum = 0;
             int i = 0;
+            int xDestCord;
+            int yDestCord;
+            int xDistanceFromActual;
+            int yDistanceFromActual;
             foreach (int element in grid)
             {
                 if(element != 0)
                 {
-                    var xDestCord = (element - 1) / _gridSize;
-                    var yDestCord = (element - 1) % _gridSize;
-                    var xDistanceFromActual = (i % _gridSize) - xDestCord;
-                    var yDistanceFromActual = (i / _gridSize) - yDestCord;
+                    xDestCord = (element - 1) / _gridSize;
+                    yDestCord = (element - 1) % _gridSize;
+                    xDistanceFromActual = (i % _gridSize) - xDestCord;
+                    yDistanceFromActual = (i / _gridSize) - yDestCord;
                     distance_sum += Math.Abs(xDistanceFromActual) + Math.Abs(yDistanceFromActual);
                     i++;
                 }
