@@ -43,8 +43,6 @@ namespace AI_puzzle
                   //  newPuzzleState.printGrid();
                 }
             }
-
-
         }
 
         public void iterativeDeepening(PuzzleGrid puzzleState, int depthLimit)

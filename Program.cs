@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 namespace AI_puzzle
 {
     class Program
     {
+        private static Random rand = new Random();
         static void Main(string[] args)
         {
             
@@ -20,9 +22,10 @@ namespace AI_puzzle
             Console.Write("Enter the size of grid: ");
             var gridSize = Convert.ToInt32(Console.ReadLine());
             int[,] rowGrid = new int[gridSize,gridSize];
-            string pattern = @"[udlr]{4}";
+            string pattern = @"^([udlr]{4})|(r\w*)$";
             Match result;
             char[] order = new char[4];
+            var possibleMoves = new List<char>{'u','d','l','r'};
             Stopwatch watch = new Stopwatch();
             long elapsedMs; 
             int[,] grid;
@@ -54,22 +57,38 @@ namespace AI_puzzle
                 throw new System.ArgumentException("Grid is no solvable", "original");
             }
             
-            string[] z; // to gather input
+            string[] input; // to gather input
 
             Console.WriteLine("Give the order of moves: ");
             do{
-                z = Console.ReadLine().Split(' ');
-                result = Regex.Match(z[0], pattern);
+                input = Console.ReadLine().Split(' ');
+                input[0].ToLower();
+                result = Regex.Match(input[0], pattern);
+
+                if(input[0][0] == 'r')
+                {
+                    for(int i = 0; i < 4; i++)
+                    {
+                        int index = rand.Next(possibleMoves.Count);
+                        order[i] = possibleMoves[index];
+                        possibleMoves.RemoveAt(index);
+                    }
+                    Console.WriteLine(new string(order));
+                } else
+                {
+                    for(int i = 0; i < 4; i++)
+                    {
+                        order[i] = input[0][i];
+                    }
+                }
+
             }while(!result.Success);
 
-            for(int i = 0; i < 4; i++)
-            {
-                order[i] = z[0][i];
-            }
+           
 
             Console.WriteLine("Enter the algorith: ");  
-            z = Console.ReadLine().Split(' ');
-            string algorithm = z[0];
+            input = Console.ReadLine().Split(' ');
+            string algorithm = input[0];
             al = new Algorithms(order);
             switch(algorithm)
             {
