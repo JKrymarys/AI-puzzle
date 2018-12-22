@@ -8,9 +8,10 @@ namespace AI_puzzle
     {
         HashSet<PuzzleGrid> doneMoves;
         PuzzleGrid goal;
-        
-        public IDFS() {
+        char[] possible_moves;
+        public IDFS(char []_possible_moves) {
             doneMoves = new HashSet<PuzzleGrid>();
+            possible_moves = _possible_moves;
         }
 
 
@@ -31,7 +32,7 @@ namespace AI_puzzle
 
             PuzzleGrid newPuzzleState;
 
-            char[] possible_moves = { 'U', 'D', 'L', 'R' };
+            // char[] possible_moves = { 'U', 'D', 'L', 'R' };
             foreach (char i in possible_moves)
             {
                 //Console.WriteLine(i);

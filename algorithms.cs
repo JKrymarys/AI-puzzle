@@ -97,7 +97,7 @@ namespace AI_puzzle
       
         public void IDFS(PuzzleGrid grid)
         {
-            var idfsSolver = new IDFS(); 
+            var idfsSolver = new IDFS(possible_moves); 
             idfsSolver.iterativeDeepening(grid,MAX_DEPTH);
         }
 
