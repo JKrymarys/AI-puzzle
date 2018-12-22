@@ -59,30 +59,7 @@ namespace AI_puzzle
             
             string[] input; // to gather input
 
-            Console.WriteLine("Give the order of moves: ");
-            do{
-                input = Console.ReadLine().Split(' ');
-                input[0].ToLower();
-                result = Regex.Match(input[0], pattern);
-            }while(!result.Success);
 
-            if(input[0][0] == 'r')
-            {
-                for(int i = 0; i < 4; i++)
-                {
-                    int index = rand.Next(possibleMoves.Count);
-                    order[i] = possibleMoves[index];
-                    possibleMoves.RemoveAt(index);
-                }
-                
-            } else
-            {
-                for(int i = 0; i < 4; i++)
-                {
-                    order[i] = input[0][i];
-                }
-            }
-           Console.WriteLine(new string(order));
 
             Console.WriteLine("Enter the algorith: ");  
             input = Console.ReadLine().Split(' ');
@@ -161,6 +138,41 @@ namespace AI_puzzle
                      "Please use following commands:\n-b || --bfs order \t\t Breadth First Search \n-d || --dfs order \t\t for Depth First Search \n-i || --idfs order \t\t for Iterative Depth First Search \n-h || --bf id_of_heurisic \t Best-first strategy \n-a || --astar id_of_heurisic \t A* strategy \n-s || --sma id_of_heurisic \t SMA* strategy for Breadth First Search \n");
                      break;
             }
+
+            if(algorithm != "--astar" || algorithm != "--sma" || algorithm != "-a" || algorithm != "-s" ||
+               algorithm != "--bf" || algorithm != "-h"  )
+            {
+                Console.WriteLine("Give the order of moves: ");
+                do{
+                    input = Console.ReadLine().Split(' ');
+                    input[0].ToLower();
+                    result = Regex.Match(input[0], pattern);
+                }while(!result.Success);
+
+                // check if order should be random or not
+                if(input[0][0] == 'r')
+                {
+                    for(int i = 0; i < 4; i++)
+                    {
+                        int index = rand.Next(possibleMoves.Count);
+                        order[i] = possibleMoves[index];
+                        possibleMoves.RemoveAt(index);
+                    }
+                    
+                } else
+                {
+                    for(int i = 0; i < 4; i++)
+                    {
+                        order[i] = input[0][i];
+                    }
+                }
+            Console.WriteLine(new string(order));
+            } 
+            else {
+                // tutaj wybór heurysyki
+            }
+            
+
         }
     }
 }
