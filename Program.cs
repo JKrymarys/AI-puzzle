@@ -64,27 +64,25 @@ namespace AI_puzzle
                 input = Console.ReadLine().Split(' ');
                 input[0].ToLower();
                 result = Regex.Match(input[0], pattern);
-
-                if(input[0][0] == 'r')
-                {
-                    for(int i = 0; i < 4; i++)
-                    {
-                        int index = rand.Next(possibleMoves.Count);
-                        order[i] = possibleMoves[index];
-                        possibleMoves.RemoveAt(index);
-                    }
-                    Console.WriteLine(new string(order));
-                } else
-                {
-                    for(int i = 0; i < 4; i++)
-                    {
-                        order[i] = input[0][i];
-                    }
-                }
-
             }while(!result.Success);
 
-           
+            if(input[0][0] == 'r')
+            {
+                for(int i = 0; i < 4; i++)
+                {
+                    int index = rand.Next(possibleMoves.Count);
+                    order[i] = possibleMoves[index];
+                    possibleMoves.RemoveAt(index);
+                }
+                
+            } else
+            {
+                for(int i = 0; i < 4; i++)
+                {
+                    order[i] = input[0][i];
+                }
+            }
+           Console.WriteLine(new string(order));
 
             Console.WriteLine("Enter the algorith: ");  
             input = Console.ReadLine().Split(' ');
@@ -100,7 +98,7 @@ namespace AI_puzzle
                     al.BFS(puzzle);
                     watch.Stop();
                     elapsedMs = watch.ElapsedMilliseconds;
-                    Console.WriteLine("Elapsed time: {0}", elapsedMs);
+                    Console.WriteLine("Elapsed time: {0} ms", elapsedMs);
                     break;
                 }
                 case "-d":
@@ -111,7 +109,7 @@ namespace AI_puzzle
                     al.DFS(puzzle);
                     watch.Stop();
                     elapsedMs = watch.ElapsedMilliseconds;
-                    Console.WriteLine("Elapsed time: {0}", elapsedMs);
+                    Console.WriteLine("Elapsed time: {0} ms", elapsedMs);
                     break;
                 }
                 case "-i":
@@ -122,7 +120,7 @@ namespace AI_puzzle
                     al.IDFS(puzzle);
                     watch.Stop();
                     elapsedMs = watch.ElapsedMilliseconds;
-                    Console.WriteLine("Elapsed time: {0}", elapsedMs);
+                    Console.WriteLine("Elapsed time: {0} ms", elapsedMs);
                     break;
                 }
                 case "-h":
@@ -133,7 +131,7 @@ namespace AI_puzzle
                     al.BFTS(puzzle);
                     watch.Stop();
                     elapsedMs = watch.ElapsedMilliseconds;
-                    Console.WriteLine("Elapsed time: {0}", elapsedMs);
+                    Console.WriteLine("Elapsed time: {0} ms", elapsedMs);
                     break;
                 }
                 case "-a":
@@ -144,7 +142,7 @@ namespace AI_puzzle
                     al.ASTAR(puzzle);
                     watch.Stop();
                     elapsedMs = watch.ElapsedMilliseconds;
-                    Console.WriteLine("Elapsed time: {0}", elapsedMs);
+                    Console.WriteLine("Elapsed time: {0} ms", elapsedMs);
                     break;
                 }
                 case "-s":
@@ -155,7 +153,7 @@ namespace AI_puzzle
                     al.SMA(puzzle);
                     watch.Stop();
                     elapsedMs = watch.ElapsedMilliseconds;
-                    Console.WriteLine("Elapsed time: {0}", elapsedMs);
+                    Console.WriteLine("Elapsed time: {0} ms", elapsedMs);
                     break;
                 }
                 default:
