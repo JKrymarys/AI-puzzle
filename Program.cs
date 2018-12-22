@@ -22,7 +22,7 @@ namespace AI_puzzle
             Console.Write("Enter the size of grid: ");
             var gridSize = Convert.ToInt32(Console.ReadLine());
             int[,] rowGrid = new int[gridSize,gridSize];
-            string pattern = @"^([udlr]{4})|(r\w*)$";
+            string pattern = @"^([udlr]{4})|(x)$";
             Match result;
             char[] order = new char[4];
             var possibleMoves = new List<char>{'u','d','l','r'};
@@ -77,7 +77,7 @@ namespace AI_puzzle
                 }while(!result.Success);
 
                 // check if order should be random or not
-                if(input[0][0] == 'r')
+                if(input[0][0] == 'x')
                 {
                     for(int i = 0; i < 4; i++)
                     {
