@@ -73,7 +73,7 @@ namespace AI_puzzle
                     if (grid.checkIfSolved())
                     {
                         Console.WriteLine("SOLVED!");
-                        // grid.printGrid();
+                        grid.printGrid();
                         return true;
                     }
 
@@ -87,7 +87,7 @@ namespace AI_puzzle
                         frontier.Push(newPuzzleState);
                         doneMoves.Add(newPuzzleState);
                         grid = newPuzzleState;
-                        newPuzzleState.printGrid();
+                        // newPuzzleState.printGrid();
                     }
                 }
             }
