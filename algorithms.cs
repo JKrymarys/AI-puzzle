@@ -76,7 +76,6 @@ namespace AI_puzzle
                         grid.printGrid();
                         return true;
                     }
-                    //Console.WriteLine(grid.move(i));
 
                     var newPuzzleState = grid.move(i);
                     if(newPuzzleState == null)
@@ -88,7 +87,7 @@ namespace AI_puzzle
                         frontier.Push(newPuzzleState);
                         doneMoves.Add(newPuzzleState);
                         grid = newPuzzleState;
-                        //newPuzzleState.printGrid();
+                        newPuzzleState.printGrid();
                     }
                 }
             }

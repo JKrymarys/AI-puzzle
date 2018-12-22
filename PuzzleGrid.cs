@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text.RegularExpressions;
 namespace AI_puzzle
 {
-    public class PuzzleGrid : IEqualityComparer<PuzzleGrid>
+    //: IEqualityComparer<PuzzleGrid>
+    public class PuzzleGrid 
     {
         public int _gridSize;
         public int[,] grid; // <int, Field> ?
@@ -129,7 +130,7 @@ namespace AI_puzzle
                 }
                 Console.WriteLine(temp);
             }
-            Console.WriteLine("History: " + history.ToString());
+          //  Console.WriteLine("History: " + history.ToString());
         }
 
         public bool checkIfSolved()
@@ -154,29 +155,67 @@ namespace AI_puzzle
             return solved;
         }
 
-        public  bool Equals(PuzzleGrid a,PuzzleGrid b)
+        // public  bool Equals(PuzzleGrid a,PuzzleGrid b)
+        // {
+        //     if (a == null || b == null)
+        //     {
+        //         return false;
+        //     }
+        //     else
+        //     {
+        //         return (a.Equals(b));
+        //     }
+        // }
+
+        public override bool Equals(Object other)
         {
-            if (a == null || b == null)
+            if ((other == null) || !this.GetType().Equals(other.GetType()))
+            {
+                return false;
+            }
+
+            else
+            {
+                // return (this.grid.Equals(((PuzzleGrid)other).grid));
+                return this.GetHashCode().Equals(((PuzzleGrid)other).GetHashCode());
+            }
+        }
+
+
+        public  bool Equals(PuzzleGrid other)
+        {
+            if (other == null)
             {
                 return false;
             }
             else
             {
-                return (a.grid.Equals(b.grid));
+                return (this.Equals(other));
             }
         }
 
 
-        public  int GetHashCode(PuzzleGrid other)
+
+    public override int GetHashCode()
         {
-            int hash = 17;
-            foreach (var el in this.grid)
+            string hash = "";
+            foreach (var el in this.grid )
             {
-
-                hash = hash * 23 + el.GetHashCode();
+                    hash += el;
             }
-            return hash;
+            int hashtoReturn = (Int32.Parse(hash)%(2147483646));
+            return hashtoReturn;
         }
+
+        // public int GetHashCode(PuzzleGrid other)
+        // {
+        //     string hash = "";
+        //     foreach (var el in other.grid )
+        //     {
+        //         hash += el;
+        //     }
+        //     return (Int32.Parse(hash)%(2147483646));
+        // }
 
         public PuzzleGrid move(char direction)
         {
