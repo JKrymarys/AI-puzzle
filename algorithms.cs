@@ -20,7 +20,7 @@ namespace AI_puzzle
 
             frontier.Enqueue(grid);
             doneMoves.Add(grid);
-
+            Console.WriteLine(this.possible_moves);
            // possible_moves = { 'U', 'D', 'L', 'R' };
 
             while (frontier.Count != 0)
@@ -62,7 +62,7 @@ namespace AI_puzzle
             frontier.Push(grid);
             doneMoves.Add(grid);
 
-            char[] possible_moves = { 'U', 'D', 'L', 'R' };
+            // char[] possible_moves = { 'U', 'D', 'L', 'R' };
 
             while (frontier.Count != 0)
             {
@@ -107,7 +107,7 @@ namespace AI_puzzle
             HashSet<PuzzleGrid> doneMoves = new HashSet<PuzzleGrid>();
             frontier.Enqueue(grid, 0);
             doneMoves.Add(grid);
-            char[] possible_moves = { 'U', 'D', 'L', 'R' };
+            // char[] possible_moves = { 'U', 'D', 'L', 'R' };
 
             while (frontier.Count != 0)
             {
@@ -143,7 +143,7 @@ namespace AI_puzzle
             HashSet<PuzzleGrid> doneMoves = new HashSet<PuzzleGrid>();
             frontier.Enqueue(grid, 0);
             doneMoves.Add(grid);
-            char[] possible_moves = { 'U', 'D', 'L', 'R' };
+            // char[] possible_moves = { 'U', 'D', 'L', 'R' };
 
             while (frontier.Count != 0)
             {
@@ -181,7 +181,7 @@ namespace AI_puzzle
             frontier.Enqueue(grid, 0);
             doneMoves.Add(grid);
             var previousCost = 0;
-            char[] possible_moves = { 'U', 'D', 'L', 'R' };
+            // char[] possible_moves = { 'U', 'D', 'L', 'R' };
 
             while (frontier.Count != 0)
             {
