@@ -73,7 +73,7 @@ namespace AI_puzzle
                     if (grid.checkIfSolved())
                     {
                         Console.WriteLine("SOLVED!");
-                        grid.printGrid();
+                        // grid.printGrid();
                         return true;
                     }
 
