@@ -93,7 +93,7 @@ namespace AI_puzzle
             idfsSolver.iterativeDeepening(grid,MAX_DEPTH);
         }
 
-        public bool BFTS(PuzzleGrid grid)
+        public bool BFTS(PuzzleGrid grid, int heuristic_id)
         {
             SimplePriorityQueue<PuzzleGrid> frontier = new SimplePriorityQueue<PuzzleGrid>();
             HashSet<PuzzleGrid> doneMoves = new HashSet<PuzzleGrid>();
@@ -121,7 +121,20 @@ namespace AI_puzzle
 
                     if(!doneMoves.Contains(newPuzzleState))
                     {
-                        var priorityLevel = newPuzzleState.manhatann_heuristic();
+                        int priorityLevel = 0;
+                        if(heuristic_id == 1) 
+                            {
+                                priorityLevel = newPuzzleState.manhatann_heuristic();
+                            }
+                        else if (heuristic_id == 2)
+                            {
+                                priorityLevel = newPuzzleState.diagonal_heuristic();
+
+                            }
+                        else if(heuristic_id == 3)
+                            {
+                                priorityLevel = (int)newPuzzleState.euclides_heuristic();
+                            }
                         frontier.Enqueue(newPuzzleState, priorityLevel);
                         doneMoves.Add(newPuzzleState);
                     }
@@ -130,7 +143,7 @@ namespace AI_puzzle
             return false;
         }
 
-        public bool ASTAR(PuzzleGrid grid)
+        public bool ASTAR(PuzzleGrid grid, int heuristic_id)
         {
             SimplePriorityQueue<PuzzleGrid> frontier = new SimplePriorityQueue<PuzzleGrid>();
             HashSet<PuzzleGrid> doneMoves = new HashSet<PuzzleGrid>();
@@ -159,7 +172,20 @@ namespace AI_puzzle
                     if(!doneMoves.Contains(newPuzzleState))
                     {
                         grid._level_of_depth++;
-                        var priorityLevel = newPuzzleState.manhatann_heuristic() + grid._level_of_depth;
+                        int priorityLevel = 0;
+                        if(heuristic_id == 1) 
+                            {
+                                priorityLevel = newPuzzleState.manhatann_heuristic() + grid._level_of_depth;
+                            }
+                        else if (heuristic_id == 2)
+                            {
+                                priorityLevel = newPuzzleState.diagonal_heuristic() + grid._level_of_depth;
+
+                            }
+                        else if(heuristic_id == 3)
+                            {
+                                priorityLevel = (int)newPuzzleState.euclides_heuristic() + grid._level_of_depth;
+                            }
                         frontier.Enqueue(newPuzzleState, priorityLevel);
                         doneMoves.Add(newPuzzleState);
                     }
@@ -168,7 +194,7 @@ namespace AI_puzzle
             return false;
         }
 
-        public bool SMA(PuzzleGrid grid)
+        public bool SMA(PuzzleGrid grid, int heuristic_id)
         {
             SimplePriorityQueue<PuzzleGrid> frontier = new SimplePriorityQueue<PuzzleGrid>();
             HashSet<PuzzleGrid> doneMoves = new HashSet<PuzzleGrid>();
@@ -198,7 +224,20 @@ namespace AI_puzzle
                     if(!doneMoves.Contains(newPuzzleState))
                     {
                         grid._level_of_depth++;
-                        var priorityLevel = newPuzzleState.manhatann_heuristic() + grid._level_of_depth;
+                        int priorityLevel = 0;
+                        if(heuristic_id == 1) 
+                            {
+                                priorityLevel = newPuzzleState.manhatann_heuristic() + grid._level_of_depth;
+                            }
+                        else if (heuristic_id == 2)
+                            {
+                                priorityLevel = newPuzzleState.diagonal_heuristic() + grid._level_of_depth;
+
+                            }
+                        else if(heuristic_id == 3)
+                            {
+                                priorityLevel = (int)newPuzzleState.euclides_heuristic() + grid._level_of_depth;
+                            }
                         frontier.Enqueue(newPuzzleState, Math.Max(priorityLevel, previousCost));
                         previousCost = priorityLevel;
                         doneMoves.Add(newPuzzleState);

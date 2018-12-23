@@ -58,16 +58,16 @@ namespace AI_puzzle
             //}
             
             string[] input; // to gather input
+            int heuristic_id = 0;
 
 
-
-            Console.WriteLine("Enter the algorith: ");  
+            Console.WriteLine("Enter the algorithm: ");  
             input = Console.ReadLine().Split(' ');
             string algorithm = input[0];
             al = new Algorithms(order);
 
-            if(algorithm != "--astar" || algorithm != "--sma" || algorithm != "-a" || algorithm != "-s" ||
-               algorithm != "--bf" || algorithm != "-h"  )
+            if(algorithm != "--astar" && algorithm != "--sma" && algorithm != "-a" && algorithm != "-s" &&
+               algorithm != "--bf" && algorithm != "-h"  )
             {
                 Console.WriteLine("Give the order of moves: ");
                 do{
@@ -96,7 +96,29 @@ namespace AI_puzzle
             Console.WriteLine(new string(order));
             } 
             else {
+                Console.WriteLine("Please enter the id of the heuristic: ");
                 // tutaj wybór heurysyki
+                input = Console.ReadLine().Split(' ');
+                if(input[0][0]  == '1')
+                    {
+                    heuristic_id = 1;
+                    }
+                else if(input[0][0]  == '2')
+                    {
+                    heuristic_id = 1;
+                    }
+                else if(input[0][0]  == '3')
+                    {
+                    heuristic_id = 1;
+                    }
+                for(int i = 0; i < 4; i++)
+                    {
+                        int index = rand.Next(possibleMoves.Count);
+                        order[i] = possibleMoves[index];
+                        possibleMoves.RemoveAt(index);
+                    }
+                Console.WriteLine(heuristic_id);
+                     
             }
 
 
@@ -140,7 +162,7 @@ namespace AI_puzzle
                 {
                     Console.WriteLine("BF started:");
                     watch = Stopwatch.StartNew();
-                    al.BFTS(puzzle);
+                    al.BFTS(puzzle,heuristic_id);
                     watch.Stop();
                     elapsedMs = watch.ElapsedMilliseconds;
                     Console.WriteLine("Elapsed time: {0} ms", elapsedMs);
@@ -151,7 +173,7 @@ namespace AI_puzzle
                 {
                     Console.WriteLine("A* started:");
                     watch = Stopwatch.StartNew();
-                    al.ASTAR(puzzle);
+                    al.ASTAR(puzzle, heuristic_id);
                     watch.Stop();
                     elapsedMs = watch.ElapsedMilliseconds;
                     Console.WriteLine("Elapsed time: {0} ms", elapsedMs);
@@ -162,7 +184,7 @@ namespace AI_puzzle
                 {
                     Console.WriteLine("SMA* started:");
                     watch = Stopwatch.StartNew();
-                    al.SMA(puzzle);
+                    al.SMA(puzzle,heuristic_id);
                     watch.Stop();
                     elapsedMs = watch.ElapsedMilliseconds;
                     Console.WriteLine("Elapsed time: {0} ms", elapsedMs);
