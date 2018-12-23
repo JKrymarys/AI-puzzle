@@ -155,17 +155,7 @@ namespace AI_puzzle
             return solved;
         }
 
-        // public  bool Equals(PuzzleGrid a,PuzzleGrid b)
-        // {
-        //     if (a == null || b == null)
-        //     {
-        //         return false;
-        //     }
-        //     else
-        //     {
-        //         return (a.Equals(b));
-        //     }
-        // }
+    
 
         public override bool Equals(Object other)
         {
@@ -206,15 +196,7 @@ namespace AI_puzzle
             return hash.GetHashCode();
         }
 
-        // public int GetHashCode(PuzzleGrid other)
-        // {
-        //     string hash = "";
-        //     foreach (var el in other.grid )
-        //     {
-        //         hash += el;
-        //     }
-        //     return (Int32.Parse(hash)%(2147483646));
-        // }
+
 
         public PuzzleGrid move(char direction)
         {

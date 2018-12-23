@@ -32,7 +32,6 @@ namespace AI_puzzle
 
             PuzzleGrid newPuzzleState;
 
-            // char[] possible_moves = { 'U', 'D', 'L', 'R' };
             foreach (char i in possible_moves)
             {
                 //Console.WriteLine(i);
