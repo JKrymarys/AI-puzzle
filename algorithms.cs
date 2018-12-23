@@ -25,17 +25,21 @@ namespace AI_puzzle
             {
                 grid = frontier.Dequeue();
 
-                if (grid.checkIfSolved())
-                {
-                    Console.WriteLine("SOLVED!");
-                    grid.printGrid();
-                    return true;
-                }
-
                 foreach (char i in possible_moves)
                 {
                     var newPuzzleState = grid.move(i);
-                    if(newPuzzleState != null && !doneMoves.Contains(newPuzzleState))
+                    
+                    if(newPuzzleState == null)
+                        continue;
+
+                    
+                    if (grid.checkIfSolved())
+                    {
+                        Console.WriteLine("SOLVED!");
+                        grid.printGrid();
+                        return true;
+                    }
+                    if(!doneMoves.Contains(newPuzzleState))
                     {
                         frontier.Enqueue(newPuzzleState);
                         doneMoves.Add(newPuzzleState);
@@ -58,18 +62,21 @@ namespace AI_puzzle
             {
                 grid = frontier.Pop();
 
-                if (grid.checkIfSolved())
-                {
-                    Console.WriteLine("SOLVED!");
-                    grid.printGrid();
-                    return true;
-                }
-
                 foreach (char i in possible_moves)
                 {
                     var newPuzzleState = grid.move(i);
+                    
+                    if(newPuzzleState == null)
+                        continue;
 
-                    if(newPuzzleState != null && !doneMoves.Contains(newPuzzleState))
+                    if (newPuzzleState.checkIfSolved())
+                    {
+                        Console.WriteLine("SOLVED!");
+                        newPuzzleState.printGrid();
+                        return true;
+                    }
+
+                    if(!doneMoves.Contains(newPuzzleState))
                     {
                         frontier.Push(newPuzzleState);
                         doneMoves.Add(newPuzzleState);
@@ -98,18 +105,21 @@ namespace AI_puzzle
             {
                 grid = frontier.Dequeue();
 
-                if (grid.checkIfSolved())
-                {
-                    Console.WriteLine("SOLVED!");
-                    grid.printGrid();
-                    return true;
-                }
-
                 foreach (char i in possible_moves)
                 {
                     var newPuzzleState = grid.move(i);
+                    
+                    if(newPuzzleState == null)
+                        continue;
 
-                    if(newPuzzleState != null && !doneMoves.Contains(newPuzzleState))
+                    if (newPuzzleState.checkIfSolved())
+                    {
+                        Console.WriteLine("SOLVED!");
+                        newPuzzleState.printGrid();
+                        return true;
+                    }
+
+                    if(!doneMoves.Contains(newPuzzleState))
                     {
                         var priorityLevel = newPuzzleState.manhatann_heuristic();
                         frontier.Enqueue(newPuzzleState, priorityLevel);
@@ -132,18 +142,21 @@ namespace AI_puzzle
             {
                 grid = frontier.Dequeue();
 
-                if (grid.checkIfSolved())
-                {
-                    Console.WriteLine("SOLVED!");
-                    grid.printGrid();
-                    return true;
-                }
-
                 foreach (char i in possible_moves)
                 {
                     var newPuzzleState = grid.move(i);
+                    
+                    if(newPuzzleState == null)
+                        continue;
 
-                    if(newPuzzleState != null && !doneMoves.Contains(newPuzzleState))
+                    if (newPuzzleState.checkIfSolved())
+                    {
+                        Console.WriteLine("SOLVED!");
+                        newPuzzleState.printGrid();
+                        return true;
+                    }
+
+                    if(!doneMoves.Contains(newPuzzleState))
                     {
                         grid._level_of_depth++;
                         var priorityLevel = newPuzzleState.manhatann_heuristic() + grid._level_of_depth;
@@ -168,18 +181,21 @@ namespace AI_puzzle
             {
                 grid = frontier.Dequeue();
 
-                if (grid.checkIfSolved())
-                {
-                    Console.WriteLine("SOLVED!");
-                    grid.printGrid();
-                    return true;
-                }
-
                 foreach (char i in possible_moves)
                 {
                     var newPuzzleState = grid.move(i);
+                    
+                    if(newPuzzleState == null)
+                        continue;
 
-                    if(newPuzzleState != null && !doneMoves.Contains(newPuzzleState))
+                    if (newPuzzleState.checkIfSolved())
+                    {
+                        Console.WriteLine("SOLVED!");
+                        newPuzzleState.printGrid();
+                        return true;
+                    }
+
+                    if(!doneMoves.Contains(newPuzzleState))
                     {
                         grid._level_of_depth++;
                         var priorityLevel = newPuzzleState.manhatann_heuristic() + grid._level_of_depth;
