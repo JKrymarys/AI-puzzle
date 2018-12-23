@@ -111,7 +111,7 @@ namespace AI_puzzle
 
                     if(newPuzzleState != null && !doneMoves.Contains(newPuzzleState))
                     {
-                        var priorityLevel = grid.manhatann_heuristic();
+                        var priorityLevel = newPuzzleState.manhatann_heuristic();
                         frontier.Enqueue(newPuzzleState, priorityLevel);
                         doneMoves.Add(newPuzzleState);
                     }
@@ -146,7 +146,7 @@ namespace AI_puzzle
                     if(newPuzzleState != null && !doneMoves.Contains(newPuzzleState))
                     {
                         grid._level_of_depth++;
-                        var priorityLevel = grid.manhatann_heuristic() + grid._level_of_depth;
+                        var priorityLevel = newPuzzleState.manhatann_heuristic() + grid._level_of_depth;
                         frontier.Enqueue(newPuzzleState, priorityLevel);
                         doneMoves.Add(newPuzzleState);
                     }
@@ -182,7 +182,7 @@ namespace AI_puzzle
                     if(newPuzzleState != null && !doneMoves.Contains(newPuzzleState))
                     {
                         grid._level_of_depth++;
-                        var priorityLevel = grid.manhatann_heuristic() + grid._level_of_depth;
+                        var priorityLevel = newPuzzleState.manhatann_heuristic() + grid._level_of_depth;
                         frontier.Enqueue(newPuzzleState, Math.Max(priorityLevel, previousCost));
                         previousCost = priorityLevel;
                         doneMoves.Add(newPuzzleState);
